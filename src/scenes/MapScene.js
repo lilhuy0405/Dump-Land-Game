@@ -20,7 +20,17 @@ class MapScene extends Phaser.Scene {
     this.load.image('terrain-tiles', '/assets/maps/Terrain16x16.png');
     this.load.image('bg-tiles', '/assets/maps/Yellow.png');
     this.load.tilemapTiledJSON('map', '/assets/maps/map1.json');
-    this.load.spritesheet('player', '/assets/characters/Virtual Guy/Idle (32x32).png', {
+    this.load.spritesheet('player', '/assets/characters/Pink Man/Idle (32x32).png', {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+    
+    this.load.spritesheet('jump', '/assets/characters/Pink Man/Jump (32x32).png', {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+    
+    this.load.spritesheet('fall', '/assets/characters/Pink Man/Fall (32x32).png', {
       frameWidth: 32,
       frameHeight: 32
     });
@@ -44,13 +54,13 @@ class MapScene extends Phaser.Scene {
     this.terrainLayer = this.map.createLayer('ForeGround', this.terrainTiles, 0, 0);
     this.backgroundLayer.setScale(2);
     this.terrainLayer.setScale(2);
-    //TODO: Separte to a class
+
     this.player = this.physics.add.sprite(20, 20, 'player').setScale(1);
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(300)
     this.anims.create({
-      key: 'idle',
+      key: 'idle-left',
       frames: this.anims.generateFrameNumbers('player', {start: 0, end: 10}),
       frameRate: 11,
       repeat: -1
@@ -62,13 +72,21 @@ class MapScene extends Phaser.Scene {
       repeat: -1
     })
     this.player.play('idle');
+    
+    this.anims.create({
+      key: 'jump',
+      frames: this.anims.generateFrameNumbers('jump', { start: 0, end: 0 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    
+    this.player.play('idle-left');
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
     this.cameras.main.setZoom(1);
     this.cameras.main.startFollow(this.player);
 
     //collision
-    //TODO: JUST FOR TEST DONT HARD CODE
     this.terrainLayer.setCollision([7, 8, 9, 1, 2, 3, 13, 14, 15, 35, 40, 41, 42])
 
     this.terrainLayer.forEachTile(tile => {
@@ -81,7 +99,6 @@ class MapScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.terrainLayer);
     this.cursors = this.input.keyboard.createCursorKeys();
   }
-
 
   update(time, delta) {
     // console.log(this.player.body.velocity.y)
@@ -101,8 +118,19 @@ class MapScene extends Phaser.Scene {
       // this.player.anims.play('turn');
     }
 
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-350);
+    if (this.player.body.onFloor()) this.player.anims.play('idle-left', true);
+    
+    const didPressJump = Phaser.Input.Keyboard.JustDown(this.cursors.space);
+
+    if (didPressJump) {
+      if (this.player.body.onFloor()) {
+        this.player.anims.play('jump', true);
+        this.canDoubleJump = true;
+        this.player.body.setVelocityY(-330);
+      } else if (this.canDoubleJump) {
+        this.canDoubleJump = false;
+        this.player.body.setVelocityY(-330);
+      }
     }
   }
 }
