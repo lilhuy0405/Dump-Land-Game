@@ -142,11 +142,11 @@ class MapScene extends Phaser.Scene {
       if (this.player.body.onFloor()) {
         this.player.anims.play('jump', true);
         this.canDoubleJump = true;
-        this.player.body.setVelocityY(-330);
+        this.player.body.setVelocityY(-300);
       } else if (this.canDoubleJump) {
         this.player.anims.play('double-jump', true);
         this.canDoubleJump = false;
-        this.player.body.setVelocityY(-330);
+        this.player.body.setVelocityY(-300);
       }
     }
   }
