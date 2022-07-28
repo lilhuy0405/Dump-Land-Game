@@ -38,6 +38,11 @@ class MapScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     });
+
+    this.load.spritesheet('player-double-jump', '/assets/characters/Pink Man/Double Jump (32x32).png', {
+      frameWidth: 32,
+      frameHeight: 32
+    })
   }
 
   create() {
@@ -79,7 +84,14 @@ class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
-    
+
+    this.anims.create({
+      key: 'double-jump',
+      frames: this.anims.generateFrameNumbers('player-double-jump', { start: 0, end: 5 }),
+      frameRate: 6,
+      repeat: -1
+    });
+
     this.player.play('idle');
 
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
@@ -102,24 +114,27 @@ class MapScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    console.log(this.player.body.velocity.y)
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.flipX = true
-      this.player.anims.play('run', true);
+      //only play run animation when player is on the ground
+      if(this.player.body.blocked.down) {
+        this.player.anims.play('run', true);
+      }
     } else if (this.cursors.right.isDown) {
-      this.player.anims.play('run', true);
       this.player.setVelocityX(160);
       this.player.flipX = false
-
-      // this.player.anims.play('right', true);
+      if(this.player.body.blocked.down) {
+        this.player.anims.play('run', true);
+      }
     } else {
       this.player.setVelocityX(0);
-      this.player.anims.play('idle', true);
-      // this.player.anims.play('turn');
+      if(this.player.body.blocked.down) {
+        this.player.anims.play('idle', true);
+      }
     }
 
-    if (this.player.body.blocked.down) this.player.anims.play('idle', true);
+    // if (this.player.body.blocked.down) this.player.anims.play('idle', true);
     
     const didPressJump = Phaser.Input.Keyboard.JustDown(this.cursors.space);
 
@@ -129,6 +144,7 @@ class MapScene extends Phaser.Scene {
         this.canDoubleJump = true;
         this.player.body.setVelocityY(-330);
       } else if (this.canDoubleJump) {
+        this.player.anims.play('double-jump', true);
         this.canDoubleJump = false;
         this.player.body.setVelocityY(-330);
       }
