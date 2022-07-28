@@ -91,6 +91,12 @@ class MapScene extends Phaser.Scene {
       frameRate: 6,
       repeat: -1
     });
+    this.anims.create({
+      key: 'fall',
+      frames: this.anims.generateFrameNumbers('fall', { start: 0, end: 5 }),
+      frameRate: 6,
+      repeat: -1
+    });
 
     this.player.play('idle');
 
@@ -103,9 +109,7 @@ class MapScene extends Phaser.Scene {
     this.terrainLayer.setCollision([7, 8, 9, 1, 2, 3, 13, 14, 15, 35, 40, 41, 42])
 
     this.terrainLayer.forEachTile(tile => {
-      console.log(tile.index)
       if ([7, 8, 9, 40, 41, 42].includes(tile.index)) {
-        console.log('here')
         tile.collideDown = false;
       }
     })
@@ -114,6 +118,9 @@ class MapScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+    if(this.player.body.velocity.y > 0 && !this.player.body.touching.down) {
+      this.player.play('fall');
+    }
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.flipX = true
