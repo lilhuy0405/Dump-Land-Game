@@ -34,7 +34,7 @@ class MapScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     });
-    this.load.spritesheet('player-run', '/assets/characters/Virtual Guy/Run (32x32).png', {
+    this.load.spritesheet('player-run', '/assets/characters/Pink Man/Run (32x32).png', {
       frameWidth: 32,
       frameHeight: 32
     });
@@ -60,18 +60,18 @@ class MapScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravityY(300)
     this.anims.create({
-      key: 'idle-left',
+      key: 'idle',
       frames: this.anims.generateFrameNumbers('player', {start: 0, end: 10}),
       frameRate: 11,
       repeat: -1
     });
+
     this.anims.create({
       key: 'run',
       frames: this.anims.generateFrameNumbers('player-run', {start: 0, end: 11}),
       frameRate: 12,
       repeat: -1
     })
-    this.player.play('idle');
     
     this.anims.create({
       key: 'jump',
@@ -80,7 +80,8 @@ class MapScene extends Phaser.Scene {
       repeat: -1
     });
     
-    this.player.play('idle-left');
+    this.player.play('idle');
+
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
     this.physics.world.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
     this.cameras.main.setZoom(1);
@@ -118,7 +119,7 @@ class MapScene extends Phaser.Scene {
       // this.player.anims.play('turn');
     }
 
-    if (this.player.body.onFloor()) this.player.anims.play('idle-left', true);
+    if (this.player.body.blocked.down) this.player.anims.play('idle', true);
     
     const didPressJump = Phaser.Input.Keyboard.JustDown(this.cursors.space);
 
