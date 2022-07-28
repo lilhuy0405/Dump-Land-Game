@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import MapScene from "./scenes/MapScene.js";
+import BootScene from "./scenes/BootScene.js";
 
 export default class MyGame extends Phaser.Game {
   constructor() {
@@ -10,13 +11,14 @@ export default class MyGame extends Phaser.Game {
       backgroundColor: '#111',
       pixelArt: true,
       scene: [
+        BootScene,
         MapScene,
       ],
       physics: {
         default: 'arcade',
         arcade: {
           debug: true,
-          gravity: { y: 300 },
+          gravity: {y: 300},
         }
       }
     };

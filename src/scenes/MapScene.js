@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import {PLAYERS} from "../configs/assets.js";
+import PlayerSprite from "../Sprites/PlayerSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -12,38 +14,12 @@ class MapScene extends Phaser.Scene {
 
     this.mapWidth = 0;
     this.mapHeight = 0;
+
+    this.tileScale = 2;
+    this.cameraScale = 1;
   }
 
-  preload() {
-    //TODO: config key path in a config file
-    //TODO: separate load assets in a Boot Scene
-    this.load.image('terrain-tiles', '/assets/maps/Terrain16x16.png');
-    this.load.image('bg-tiles', '/assets/maps/Yellow.png');
-    this.load.tilemapTiledJSON('map', '/assets/maps/map1.json');
-    this.load.spritesheet('player', '/assets/characters/Pink Man/Idle (32x32).png', {
-      frameWidth: 32,
-      frameHeight: 32
-    });
-    
-    this.load.spritesheet('jump', '/assets/characters/Pink Man/Jump (32x32).png', {
-      frameWidth: 32,
-      frameHeight: 32
-    });
-    
-    this.load.spritesheet('fall', '/assets/characters/Pink Man/Fall (32x32).png', {
-      frameWidth: 32,
-      frameHeight: 32
-    });
-    this.load.spritesheet('player-run', '/assets/characters/Pink Man/Run (32x32).png', {
-      frameWidth: 32,
-      frameHeight: 32
-    });
-
-    this.load.spritesheet('player-double-jump', '/assets/characters/Pink Man/Double Jump (32x32).png', {
-      frameWidth: 32,
-      frameHeight: 32
-    })
-  }
+  preload() {}
 
   create() {
 
@@ -57,52 +33,15 @@ class MapScene extends Phaser.Scene {
     // index (0 in this case).
     this.backgroundLayer = this.map.createLayer('Background', this.backgroundTiles, 0, 0);
     this.terrainLayer = this.map.createLayer('ForeGround', this.terrainTiles, 0, 0);
-    this.backgroundLayer.setScale(2);
-    this.terrainLayer.setScale(2);
+    this.backgroundLayer.setScale(this.tileScale);
+    this.terrainLayer.setScale(this.tileScale);
 
-    this.player = this.physics.add.sprite(20, 20, 'player').setScale(1);
-    this.player.setBounce(0.2);
-    this.player.setCollideWorldBounds(true);
-    this.player.body.setGravityY(300)
-    this.anims.create({
-      key: 'idle',
-      frames: this.anims.generateFrameNumbers('player', {start: 0, end: 10}),
-      frameRate: 11,
-      repeat: -1
-    });
+    this.player = new PlayerSprite(this, PLAYERS[2], 10, 10);
 
-    this.anims.create({
-      key: 'run',
-      frames: this.anims.generateFrameNumbers('player-run', {start: 0, end: 11}),
-      frameRate: 12,
-      repeat: -1
-    })
-    
-    this.anims.create({
-      key: 'jump',
-      frames: this.anims.generateFrameNumbers('jump', { start: 0, end: 0 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'double-jump',
-      frames: this.anims.generateFrameNumbers('player-double-jump', { start: 0, end: 5 }),
-      frameRate: 6,
-      repeat: -1
-    });
-    this.anims.create({
-      key: 'fall',
-      frames: this.anims.generateFrameNumbers('fall', { start: 0, end: 5 }),
-      frameRate: 6,
-      repeat: -1
-    });
-
-    this.player.play('idle');
-
-    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
-    this.physics.world.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
-    this.cameras.main.setZoom(1);
+    //setup camera
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
+    this.cameras.main.setZoom(this.cameraScale);
     this.cameras.main.startFollow(this.player);
 
     //collision
@@ -117,46 +56,7 @@ class MapScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update(time, delta) {
-    if(this.player.body.velocity.y > 0 && !this.player.body.touching.down) {
-      this.player.play('fall');
-    }
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-      this.player.flipX = true
-      //only play run animation when player is on the ground
-      if(this.player.body.blocked.down) {
-        this.player.anims.play('run', true);
-      }
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
-      this.player.flipX = false
-      if(this.player.body.blocked.down) {
-        this.player.anims.play('run', true);
-      }
-    } else {
-      this.player.setVelocityX(0);
-      if(this.player.body.blocked.down) {
-        this.player.anims.play('idle', true);
-      }
-    }
-
-    // if (this.player.body.blocked.down) this.player.anims.play('idle', true);
-    
-    const didPressJump = Phaser.Input.Keyboard.JustDown(this.cursors.space);
-
-    if (didPressJump) {
-      if (this.player.body.onFloor()) {
-        this.player.anims.play('jump', true);
-        this.canDoubleJump = true;
-        this.player.body.setVelocityY(-300);
-      } else if (this.canDoubleJump) {
-        this.player.anims.play('double-jump', true);
-        this.canDoubleJump = false;
-        this.player.body.setVelocityY(-300);
-      }
-    }
-  }
+  update(time, delta) {}
 }
 
 export default MapScene;
