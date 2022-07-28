@@ -84,7 +84,7 @@ class MapScene extends Phaser.Scene {
 
 
   update(time, delta) {
-    // console.log(this.player.body.velocity.y)
+    console.log(this.player.body.velocity.y)
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.flipX = true
