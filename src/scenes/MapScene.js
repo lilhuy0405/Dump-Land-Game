@@ -19,24 +19,14 @@ class MapScene extends Phaser.Scene {
     this.cameraScale = 1;
   }
 
-  preload() {}
+  preload() {
+  }
 
   create() {
 
-    this.map = this.make.tilemap({key: 'map'});
+    this.map = this.buildMap();
 
-    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
-    // of the tileset image used when loading the file in preload.
-    this.terrainTiles = this.map.addTilesetImage('Terrain', 'terrain-tiles');
-    this.backgroundTiles = this.map.addTilesetImage('Yellow', 'bg-tiles');
-    // You can load a layer from the map using the layer name from Tiled, or by using the layer
-    // index (0 in this case).
-    this.backgroundLayer = this.map.createLayer('Background', this.backgroundTiles, 0, 0);
-    this.terrainLayer = this.map.createLayer('ForeGround', this.terrainTiles, 0, 0);
-    this.backgroundLayer.setScale(this.tileScale);
-    this.terrainLayer.setScale(this.tileScale);
-
-    this.player = new PlayerSprite(this, PLAYERS[2], 10, 10);
+    this.player = new PlayerSprite(this, PLAYERS[0], 10, 10);
 
     //setup camera
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
@@ -56,7 +46,29 @@ class MapScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update(time, delta) {}
+  update(time, delta) {
+    this.bg.tilePositionX++;
+  }
+
+  buildMap() {
+    const map = this.make.tilemap({key: 'map'});
+
+    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
+    // of the tileset image used when loading the file in preload.
+    this.terrainTiles = map.addTilesetImage('Terrain (16x16)', 'terrain-tiles');
+    this.backgroundTiles = map.addTilesetImage('Yellow', 'bg-tiles');
+    // You can load a layer from the map using the layer name from Tiled, or by using the layer
+    // this.backgroundLayer = map.createLayer('Background', this.backgroundTiles, 0, 0);
+    this.terrainLayer = map.createLayer('ForeGround', this.terrainTiles, 0, 0);
+    // this.backgroundLayer.setScale(this.tileScale);
+    this.bg = this.add.tileSprite(0, 0, 1200, 480, 'bg1');
+    this.bg.setOrigin(0, 0);
+    // this.bg.setScrollFactor(0);
+    this.bg.setDepth(-1)
+    this.terrainLayer.setScale(this.tileScale);
+    return map
+
+  }
 }
 
 export default MapScene;

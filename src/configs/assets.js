@@ -17,7 +17,7 @@ export const PLAYERS = [
         frameConfig: {
           frameWidth: 32,
           frameHeight: 32,
-          frameRate: 6
+          frameRate: 12
         }
       },
       {
@@ -279,4 +279,8 @@ export const MAP = [
     key: 'map1',
     path: '/assets/maps/map1.json',
   }
+]
+
+export const MAP_TILE_SETS = [
+
 ]

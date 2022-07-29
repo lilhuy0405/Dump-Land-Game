@@ -17,7 +17,7 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0.2);
     this.body.setGravityY(300)
     this.createAnimation();
-    this.anims.play(`${spriteConfig.spriteSheets[0].key}`);
+    // this.anims.play(`${spriteConfig.spriteSheets[0].key}`);
     //setup velocity
     this.data.velocity = {
       x: 160,
@@ -34,7 +34,7 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
           end: spriteSheet.frameConfig.frameRate - 1
         }),
         frameRate: spriteSheet.frameConfig.frameRate,
-        repeat: -1
+        repeat: -1,
       });
     })
   }
@@ -75,7 +75,7 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
       } else if (this.canDoubleJump) {
         this.anims.play('double-jump', true);
         this.canDoubleJump = false;
-        this.body.setVelocityY(-this.data.velocity.y);
+        this.body.setVelocityY(-(this.data.velocity.y - 50));
       }
     }
   }

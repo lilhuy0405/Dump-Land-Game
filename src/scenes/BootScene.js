@@ -10,6 +10,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('terrain-tiles', '/assets/maps/Terrain16x16.png');
     this.load.image('bg-tiles', '/assets/maps/Yellow.png');
     this.load.tilemapTiledJSON('map', '/assets/maps/map1.json');
+    this.load.image('bg1', '/assets/maps/bg1.png');
 
     //load player sprite sheet
     PLAYERS.forEach(player => {
