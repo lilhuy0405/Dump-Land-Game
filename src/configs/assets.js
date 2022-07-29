@@ -272,6 +272,28 @@ export const PLAYERS = [
     ]
   }
 ]
+export const LIST_FRUITS = [
+  'Apple', 'Cherries', 'Bananas', 'Kiwi', 'Melon', 'Orange', 'Pineapple', 'Strawberry'
+]
+export const FRUITS = LIST_FRUITS.map(fruit => ({
+  key: fruit,
+  path: `/assets/Fruits/${fruit}.png`,
+  frameConfig: {
+    frameWidth: 32,
+    frameHeight: 32,
+    frameRate: 17
+  }
+}))
+
+export const FRUIT_COLLECTED = {
+  key: 'fruit-collected',
+  path: '/assets/Fruits/Collected.png',
+  frameConfig: {
+    frameWidth: 32,
+    frameHeight: 32,
+    frameRate: 6
+  }
+}
 
 export const MAP = [
   {

@@ -1,6 +1,7 @@
 import Phaser from "phaser";
-import {PLAYERS} from "../configs/assets.js";
+import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
 import PlayerSprite from "../Sprites/PlayerSprite.js";
+import FruitSprite from "../Sprites/FruitSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -26,7 +27,7 @@ class MapScene extends Phaser.Scene {
 
     this.map = this.buildMap();
 
-    this.player = new PlayerSprite(this, PLAYERS[0], 10, 10);
+    this.player = new PlayerSprite(this, PLAYERS[2], 10, 10);
 
     //setup camera
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
@@ -44,6 +45,17 @@ class MapScene extends Phaser.Scene {
     })
     this.physics.add.collider(this.player, this.terrainLayer);
     this.cursors = this.input.keyboard.createCursorKeys();
+    //add fruits
+    //TODO: read from tiled map
+    let fruits = this.physics.add.staticGroup();
+    FRUITS.forEach((fruit, index) => {
+      fruits.add(new FruitSprite(this, fruit, 340 + (index * 40), 340))
+    })
+
+    this.physics.add.overlap(this.player, fruits, (player, fruit) => {
+      fruit.anims.play(FRUIT_COLLECTED.key, true);
+      // fruit.disableBody(true, true);
+    })
   }
 
   update(time, delta) {
@@ -52,6 +64,7 @@ class MapScene extends Phaser.Scene {
 
   buildMap() {
     const map = this.make.tilemap({key: 'map'});
+    console.log(map)
 
     // The first parameter is the name of the tileset in Tiled and the second parameter is the key
     // of the tileset image used when loading the file in preload.
@@ -61,7 +74,8 @@ class MapScene extends Phaser.Scene {
     // this.backgroundLayer = map.createLayer('Background', this.backgroundTiles, 0, 0);
     this.terrainLayer = map.createLayer('ForeGround', this.terrainTiles, 0, 0);
     // this.backgroundLayer.setScale(this.tileScale);
-    this.bg = this.add.tileSprite(0, 0, 1200, 480, 'bg1');
+    console.log(map.widthInPixels)
+    this.bg = this.add.tileSprite(0, 0, map.widthInPixels * 2, map.heightInPixels * 2, 'bg1');
     this.bg.setOrigin(0, 0);
     // this.bg.setScrollFactor(0);
     this.bg.setDepth(-1)

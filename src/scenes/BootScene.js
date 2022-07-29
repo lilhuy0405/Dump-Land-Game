@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {PLAYERS} from "../configs/assets.js";
+import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -15,13 +15,24 @@ export default class BootScene extends Phaser.Scene {
     //load player sprite sheet
     PLAYERS.forEach(player => {
       player.spriteSheets.map(spriteSheet => {
-        console.log(`${player.name}-${spriteSheet.key}`)
         this.load.spritesheet(`${player.name}-${spriteSheet.key}`,
           spriteSheet.path, {
             frameWidth: spriteSheet.frameConfig.frameWidth,
             frameHeight: spriteSheet.frameConfig.frameHeight
           })
       })
+    })
+    //load fruit sprite sheet
+    FRUITS.forEach(fruit => {
+      this.load.spritesheet(fruit.key, fruit.path, {
+        frameWidth: fruit.frameConfig.frameWidth,
+        frameHeight: fruit.frameConfig.frameHeight
+      })
+    })
+    //load fruit collected sprite sheet
+    this.load.spritesheet(FRUIT_COLLECTED.key, FRUIT_COLLECTED.path, {
+      frameWidth: FRUIT_COLLECTED.frameConfig.frameWidth,
+      frameHeight: FRUIT_COLLECTED.frameConfig.frameHeight
     })
   }
 
