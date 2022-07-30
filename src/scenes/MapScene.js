@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
-import PlayerSprite from "../Sprites/PlayerSprite.js";
-import FruitSprite from "../Sprites/FruitSprite.js";
+import {FRUIT_COLLECTED, FRUITS, MAP_OBJECTS_TYPE, PLAYERS} from "../configs/assets.js";
+import PlayerSprite from "../sprites/PlayerSprite.js";
+import FruitSprite from "../sprites/FruitSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -18,6 +18,7 @@ class MapScene extends Phaser.Scene {
 
     this.tileScale = 2;
     this.cameraScale = 1;
+    this.fruits = []
   }
 
   preload() {
@@ -45,17 +46,8 @@ class MapScene extends Phaser.Scene {
     })
     this.physics.add.collider(this.player, this.terrainLayer);
     this.cursors = this.input.keyboard.createCursorKeys();
-    //add fruits
-    //TODO: read from tiled map
-    let fruits = this.physics.add.staticGroup();
-    FRUITS.forEach((fruit, index) => {
-      fruits.add(new FruitSprite(this, fruit, 340 + (index * 40), 340))
-    })
 
-    this.physics.add.overlap(this.player, fruits, (player, fruit) => {
-      fruit.anims.play(FRUIT_COLLECTED.key, true);
-      // fruit.disableBody(true, true);
-    })
+
   }
 
   update(time, delta) {
@@ -64,7 +56,7 @@ class MapScene extends Phaser.Scene {
 
   buildMap() {
     const map = this.make.tilemap({key: 'map'});
-    console.log(map)
+
 
     // The first parameter is the name of the tileset in Tiled and the second parameter is the key
     // of the tileset image used when loading the file in preload.
@@ -80,8 +72,26 @@ class MapScene extends Phaser.Scene {
     // this.bg.setScrollFactor(0);
     this.bg.setDepth(-1)
     this.terrainLayer.setScale(this.tileScale);
+    // build objects
+    const objectLayer = map.getObjectLayer('Objects');
+    console.log(objectLayer)
+    // this.fruits = this.physics.add.staticGroup();
+    objectLayer.objects.forEach(object => {
+      const objectType = object.properties.find(property => property.name === 'type').value;
+      switch (objectType) {
+        case MAP_OBJECTS_TYPE.FRUITS:
+          const fruitName = object.properties.find(property => property.name === 'name').value;
+          const fruitData = FRUITS.find(fruit => fruit.key === fruitName);
+          //caculate position
+          const x = object.x * this.tileScale;
+          const y = object.y * this.tileScale;
+          this.fruits.push(new FruitSprite(this, fruitData, x, y));
+          break;
+        default:
+          break;
+      }
+    })
     return map
-
   }
 }
 

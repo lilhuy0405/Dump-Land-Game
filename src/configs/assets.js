@@ -303,6 +303,10 @@ export const MAP = [
   }
 ]
 
+export const MAP_OBJECTS_TYPE = {
+  FRUITS: 'Fruits',
+}
+
 export const MAP_TILE_SETS = [
 
 ]
