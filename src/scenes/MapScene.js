@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, MAP_OBJECTS_TYPE, PLAYERS} from "../configs/assets.js";
+import {FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
 import PlayerSprite from "../sprites/PlayerSprite.js";
 import FruitSprite from "../sprites/FruitSprite.js";
 
@@ -18,7 +18,15 @@ class MapScene extends Phaser.Scene {
 
     this.tileScale = 2;
     this.cameraScale = 1;
+    this.map = null
     this.fruits = []
+    this.collisionLayer = null;
+    this.isShowingCollision = false;
+    this.heroSpwanPlace = null;
+    this.player = null
+    this.background = null
+    this.backgroundImage = null
+    this.backgroundImageSpeed = 1
   }
 
   preload() {
@@ -26,55 +34,61 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap();
+    this.map = this.buildMap(MAPS[0].key);
 
-    this.player = new PlayerSprite(this, PLAYERS[2], 10, 10);
-
-    //setup camera
-    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
-    this.physics.world.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
-    this.cameras.main.setZoom(this.cameraScale);
-    this.cameras.main.startFollow(this.player);
-
-    //collision
-    this.terrainLayer.setCollision([7, 8, 9, 1, 2, 3, 13, 14, 15, 35, 40, 41, 42])
-
-    this.terrainLayer.forEachTile(tile => {
-      if ([7, 8, 9, 40, 41, 42].includes(tile.index)) {
-        tile.collideDown = false;
-      }
-    })
-    this.physics.add.collider(this.player, this.terrainLayer);
     this.cursors = this.input.keyboard.createCursorKeys();
-
 
   }
 
   update(time, delta) {
-    this.bg.tilePositionX++;
+    if (this.background) {
+      if (this.background.direction === 'X') {
+        this.backgroundImage.tilePositionX += this.backgroundImageSpeed
+      } else {
+        this.backgroundImage.tilePositionY += this.backgroundImageSpeed
+      }
+    }
   }
 
-  buildMap() {
-    const map = this.make.tilemap({key: 'map'});
+  buildMap(mapKey) {
+    //remove old map
+    //...
+    //build new map
+    const map = this.make.tilemap({key: mapKey});
+    //create tileSet and layer
+    const tileSets = []
+    map.tilesets.forEach(tileset => {
+      tileSets.push(map.addTilesetImage(tileset.name, tileset.name));
+    })
+    const layers = []
+    map.layers.forEach(layer => {
+      const layerTileSetProps = layer.properties.find(prop => prop.name === 'tilesets').value.split(',')
+      const layerTileSets = []
+      layerTileSetProps.forEach((tileSetProp, index) => {
+        const tileSetName = tileSetProp.replaceAll('"', '')
+        const tileSet = tileSets.find(item => item.name === tileSetName)
+        if (tileSet) {
+          layerTileSets.push(tileSet)
+        }
 
+      })
+      layers.push(map.createLayer(layer.name, layerTileSets, 0, 0).setScale(this.tileScale))
+    })
 
-    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
-    // of the tileset image used when loading the file in preload.
-    this.terrainTiles = map.addTilesetImage('Terrain (16x16)', 'terrain-tiles');
-    this.backgroundTiles = map.addTilesetImage('Yellow', 'bg-tiles');
-    // You can load a layer from the map using the layer name from Tiled, or by using the layer
-    // this.backgroundLayer = map.createLayer('Background', this.backgroundTiles, 0, 0);
-    this.terrainLayer = map.createLayer('ForeGround', this.terrainTiles, 0, 0);
-    // this.backgroundLayer.setScale(this.tileScale);
-    console.log(map.widthInPixels)
-    this.bg = this.add.tileSprite(0, 0, map.widthInPixels * 2, map.heightInPixels * 2, 'bg1');
-    this.bg.setOrigin(0, 0);
-    // this.bg.setScrollFactor(0);
-    this.bg.setDepth(-1)
-    this.terrainLayer.setScale(this.tileScale);
+    const collisionLayer = layers.find(layer => layer.layer.name === 'Collision')
+    if (collisionLayer) {
+      collisionLayer.setCollisionByProperty({collide: true})
+      collisionLayer.forEachTile(tile => {
+        if (tile.properties.canJump) {
+          tile.collideDown = false
+        }
+      })
+      collisionLayer.setAlpha(this.isShowingCollision ? 0.6 : 0)
+      this.collisionLayer = collisionLayer
+    }
+
     // build objects
     const objectLayer = map.getObjectLayer('Objects');
-    console.log(objectLayer)
     // this.fruits = this.physics.add.staticGroup();
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
@@ -87,10 +101,43 @@ class MapScene extends Phaser.Scene {
           const y = object.y * this.tileScale;
           this.fruits.push(new FruitSprite(this, fruitData, x, y));
           break;
+        case MAP_OBJECTS_TYPE.HERO_SPAWN:
+          this.heroSpwanPlace = {
+            x: object.x * this.tileScale,
+            y: object.y * this.tileScale
+          }
+          break;
+        case MAP_OBJECTS_TYPE.BACKGROUND:
+          const backgroundName = object.properties.find(property => property.name === 'name').value;
+          const backgroundData = MAP_BG_IMAGES.find(bg => bg.key === backgroundName);
+          const backGroundMovingDirection = object.properties.find(property => property.name === 'moveDirection').value;
+          if (backgroundData && backGroundMovingDirection && backGroundMovingDirection) {
+            this.background = {
+              ...backgroundData,
+              backgroundName,
+              direction: backGroundMovingDirection,
+            }
+            //build background
+            this.backgroundImage = this.add.tileSprite(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale, this.background.key);
+            this.backgroundImage.setOrigin(0, 0);
+            // this.bg.setScrollFactor(0);
+            this.backgroundImage.setDepth(-1)
+          }
+          break;
         default:
           break;
       }
     })
+    //spawn hero
+    this.player = new PlayerSprite(this, PLAYERS[2], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
+    if (this.collisionLayer) {
+      this.physics.add.collider(this.player, this.collisionLayer);
+    }
+    //setup camera
+    this.cameras.main.setBounds(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale);
+    this.physics.world.setBounds(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale);
+    this.cameras.main.setZoom(this.cameraScale);
+    this.cameras.main.startFollow(this.player);
     return map
   }
 }

@@ -295,7 +295,7 @@ export const FRUIT_COLLECTED = {
   }
 }
 
-export const MAP = [
+export const MAPS = [
   {
     name: 'map 1',
     key: 'map1',
@@ -305,8 +305,30 @@ export const MAP = [
 
 export const MAP_OBJECTS_TYPE = {
   FRUITS: 'Fruits',
+  HERO_SPAWN: 'HeroSpawn',
+  BACKGROUND: 'Background',
 }
-
+/*
+* TILE SETS IMAGE USE IN TILE MAP
+* <br/><b>key</b>: the tile set name mapped by tileset name in tiled editor
+* <br/><b>path</b>: the image path
+* */
 export const MAP_TILE_SETS = [
+  {
+    key: 'Terrain (16x16)',
+    path: '/assets/maps/Terrain16x16.png',
+  },
+  {
+    key: 'Collision',
+    path: '/assets/maps/collisionTileSets.png',
+  },
 
+]
+
+export const MAP_BG_IMAGES = [
+  {
+    key: 'Yellow',
+    name: 'Yellow',
+    path: '/assets/maps/bg1.png',
+  }
 ]

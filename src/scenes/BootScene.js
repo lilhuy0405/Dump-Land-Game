@@ -1,16 +1,22 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
+import {FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_TILE_SETS, MAPS, PLAYERS} from "../configs/assets.js";
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
     super("BootScene");
   }
+
   preload() {
     //TODO: config key path in a config file
-    this.load.image('terrain-tiles', '/assets/maps/Terrain16x16.png');
-    this.load.image('bg-tiles', '/assets/maps/Yellow.png');
-    this.load.tilemapTiledJSON('map', '/assets/maps/map1.json');
-    this.load.image('bg1', '/assets/maps/bg1.png');
+    MAP_TILE_SETS.forEach(mapTileSet => {
+      this.load.image(mapTileSet.key, mapTileSet.path);
+    })
+    MAPS.forEach(map => {
+      this.load.tilemapTiledJSON(map.key, map.path);
+    })
+    MAP_BG_IMAGES.forEach(mapBgImage => {
+      this.load.image(mapBgImage.key, mapBgImage.path);
+    })
 
     //load player sprite sheet
     PLAYERS.forEach(player => {
@@ -36,7 +42,7 @@ export default class BootScene extends Phaser.Scene {
     })
   }
 
-  create(){
+  create() {
     this.scene.start("MapScene");
   }
 }
