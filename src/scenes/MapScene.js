@@ -39,9 +39,15 @@ class MapScene extends Phaser.Scene {
     this.map = this.buildMap(MAPS[0].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
+
   }
 
   update(time, delta) {
+
+    const fruitsCollected = this.fruits.filter(item => item.active === false)
+    if(fruitsCollected.length === this.fruits.length && this.checkPoint && !this.checkPoint.isShown) {
+      this.checkPoint.show()
+    }
     if (this.background) {
       if (this.background.direction === 'X') {
         this.backgroundImage.tilePositionX += this.backgroundImageSpeed
@@ -49,24 +55,7 @@ class MapScene extends Phaser.Scene {
         this.backgroundImage.tilePositionY += this.backgroundImageSpeed
       }
     }
-    //check distance to portal and change map
-    if (this.checkPoint) {
-      const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.checkPoint.x, this.checkPoint.y);
-      if (distance < 50) {
-        this.cameras.main.fadeOut(0, 0, 0, 0, (camera, progress) => {
-          if (progress === 1) {
-            //build new map
-            // this.physics.pause();
-            this.map = this.buildMap(this.checkPoint.to);
-            this.cameras.main.fadeIn(2000, 0, 0, 0, (camera, progress) => {
-              if (progress === 1) {
-                // this.physics.resume();
-              }
-            })
-          }
-        })
-      }
-    }
+
   }
 
   buildMap(mapKey) {
