@@ -466,8 +466,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":433,
-                 "y":170.333333333333
+                 "x":434,
+                 "y":173.833333333333
                 }, 
                 {
                  "class":"",
@@ -488,8 +488,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":493.333333333333,
-                 "y":170.666666666667
+                 "x":491.833333333333,
+                 "y":139.166666666667
                 }, 
                 {
                  "class":"",
@@ -510,8 +510,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":464,
-                 "y":171.333333333333
+                 "x":466,
+                 "y":137.333333333333
                 }, 
                 {
                  "class":"",
@@ -556,50 +556,6 @@
                  "width":16,
                  "x":400,
                  "y":112
-                }, 
-                {
-                 "class":"",
-                 "height":16,
-                 "id":27,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"Cherries"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Fruits"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":492.666666666667,
-                 "y":138.333333333333
-                }, 
-                {
-                 "class":"",
-                 "height":16,
-                 "id":28,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"Strawberry"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Fruits"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":463.666666666667,
-                 "y":139
                 }, 
                 {
                  "class":"",
@@ -769,10 +725,26 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":16.75,
-                 "y":175.25
-                },
-            
+                 "x":15.75,
+                 "y":160.25
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":41,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"HeroSpawn"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":15.75,
+                 "y":160.25
+                }, 
                 {
                  "class":"",
                  "height":16,
@@ -799,6 +771,34 @@
                  "width":16,
                  "x":17,
                  "y":17
+                },
+            
+                {
+                 "class":"",
+                 "height":16,
+                 "id":43,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"map1"
+                        }, 
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"map2"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Checkpoint"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16.5,
+                 "x":488,
+                 "y":164.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -807,7 +807,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":41,
+ "nextobjectid":44,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

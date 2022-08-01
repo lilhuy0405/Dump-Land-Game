@@ -284,6 +284,25 @@ export const FRUITS = LIST_FRUITS.map(fruit => ({
     frameRate: 17
   }
 }))
+export const PLAYER_APPEAR = {
+  key: 'player-appear',
+  path: '/assets/characters/Appearing (96x96).png',
+  frameConfig: {
+    frameWidth: 96,
+    frameHeight: 96,
+    frameRate: 7
+  }
+}
+
+export const PLAYER_DISAPPEAR = {
+  key: 'player-appear',
+  path: '/assets/characters/Desappearing (96x96).png',
+  frameConfig: {
+    frameWidth: 96,
+    frameHeight: 96,
+    frameRate: 7
+  }
+}
 
 export const FRUIT_COLLECTED = {
   key: 'fruit-collected',
@@ -300,6 +319,11 @@ export const MAPS = [
     name: 'map 1',
     key: 'map1',
     path: '/assets/maps/map1.json',
+  },
+  {
+    name: 'map 2',
+    key: 'map2',
+    path: '/assets/maps/map2.json',
   }
 ]
 
@@ -307,7 +331,31 @@ export const MAP_OBJECTS_TYPE = {
   FRUITS: 'Fruits',
   HERO_SPAWN: 'HeroSpawn',
   BACKGROUND: 'Background',
+  CHECKPOINT: 'Checkpoint',
 }
+
+export const CHECKPOINT_SPRITES = [
+  {
+    key: 'checkpoint-flag-out',
+    path: '/assets/Checkpoint/Checkpoint (Flag Out) (64x64).png',
+    frameConfig: {
+      frameWidth: 64,
+      frameHeight: 64,
+      frameRate: 16,
+      repeat: 1
+    }
+  },
+  {
+    key: 'checkpoint-idle',
+    path: '/assets/Checkpoint/Checkpoint (Flag Idle)(64x64).png',
+    frameConfig: {
+      frameWidth: 64,
+      frameHeight: 64,
+      frameRate: 10,
+      repeat: -1
+    }
+  }
+]
 /*
 * TILE SETS IMAGE USE IN TILE MAP
 * <br/><b>key</b>: the tile set name mapped by tileset name in tiled editor

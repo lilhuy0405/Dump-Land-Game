@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import {FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
 import PlayerSprite from "../sprites/PlayerSprite.js";
 import FruitSprite from "../sprites/FruitSprite.js";
+import CheckPointSprite from "../sprites/CheckPointSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -27,6 +28,7 @@ class MapScene extends Phaser.Scene {
     this.background = null
     this.backgroundImage = null
     this.backgroundImageSpeed = 1
+    this.checkPoint = null;
   }
 
   preload() {
@@ -35,9 +37,8 @@ class MapScene extends Phaser.Scene {
   create() {
 
     this.map = this.buildMap(MAPS[0].key);
-
     this.cursors = this.input.keyboard.createCursorKeys();
-
+    // console.log('increate', this.map)
   }
 
   update(time, delta) {
@@ -48,13 +49,66 @@ class MapScene extends Phaser.Scene {
         this.backgroundImage.tilePositionY += this.backgroundImageSpeed
       }
     }
+    //check distance to portal and change map
+    if (this.checkPoint) {
+      const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, this.checkPoint.x, this.checkPoint.y);
+      if (distance < 50) {
+        this.cameras.main.fadeOut(0, 0, 0, 0, (camera, progress) => {
+          if (progress === 1) {
+            //build new map
+            // this.physics.pause();
+            this.map = this.buildMap(this.checkPoint.to);
+            this.cameras.main.fadeIn(2000, 0, 0, 0, (camera, progress) => {
+              if (progress === 1) {
+                // this.physics.resume();
+              }
+            })
+          }
+        })
+      }
+    }
   }
 
   buildMap(mapKey) {
     //remove old map
-    //...
+    if (this.player) {
+      this.player.disableBody(true, true);
+      this.player.body.destroy(true, true);
+      this.player = null;
+    }
+
+    if (this.fruits.length > 0) {
+      this.fruits.forEach(fruit => {
+        fruit.disableBody(true, true);
+        fruit.body.destroy(true, true);
+        this.fruits = [];
+      })
+    }
+    if (this.collisionLayer) {
+      this.collisionLayer.destroy();
+      this.collisionLayer = null;
+    }
+    if(this.heroSpwanPlace) {
+      this.heroSpwanPlace = null;
+    }
+    if(this.background) {
+      this.backgroundImage.destroy();
+      this.background = null;
+      this.backgroundImage = null;
+    }
+    if(this.checkPoint) {
+      this.checkPoint.body.destroy(true, true);
+      this.checkPoint.disableBody(true, true);
+      this.checkPoint = null;
+    }
+    if (this.map) {
+      this.map.destroy();
+      this.map = null;
+    }
+
     //build new map
     const map = this.make.tilemap({key: mapKey});
+
     //create tileSet and layer
     const tileSets = []
     map.tilesets.forEach(tileset => {
@@ -124,6 +178,15 @@ class MapScene extends Phaser.Scene {
             this.backgroundImage.setDepth(-1)
           }
           break;
+        case MAP_OBJECTS_TYPE.CHECKPOINT:
+          const from = object.properties.find(property => property.name === 'from').value;
+          const to = object.properties.find(property => property.name === 'to').value;
+          this.checkPoint = new CheckPointSprite(this, {
+            from,
+            to
+          }, object.x * this.tileScale, object.y * this.tileScale);
+          break;
+
         default:
           break;
       }

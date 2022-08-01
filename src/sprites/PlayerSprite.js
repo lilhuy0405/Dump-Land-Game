@@ -1,4 +1,5 @@
 import * as Phaser from "phaser";
+import {PLAYER_APPEAR} from "../configs/assets.js";
 
 export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, spriteConfig, x, y) {
@@ -8,7 +9,7 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.name = spriteConfig.name;
 
     this.setPosition(x, y);
-    this.setOrigin(0, 0.5)
+    this.setOrigin(0, 0)
     this.setScale(1)
     // enable physics
     this.scene.add.existing(this);
@@ -17,7 +18,6 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0.2);
     this.body.setGravityY(300)
     this.createAnimation();
-    // this.anims.play(`${spriteConfig.spriteSheets[0].key}`);
     //setup velocity
     this.data.velocity = {
       x: 160,
@@ -37,13 +37,16 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
         repeat: -1,
       });
     })
+
   }
 
   preUpdate(time, delta) {
+
     super.preUpdate(time, delta);
     if (this.body.velocity.y > 0 && !this.body.touching.down) {
       this.play('fall');
     }
+
     if (this.scene.cursors.left.isDown) {
       this.setVelocityX(-this.data.velocity.x);
       this.flipX = true
