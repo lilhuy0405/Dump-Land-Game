@@ -377,6 +377,43 @@ export const MAP_BG_IMAGES = [
   {
     key: 'Yellow',
     name: 'Yellow',
-    path: '/assets/maps/bg1.png',
+    path: '/assets/maps/bg-yellow.png',
+    moveDirection: 'left',
+  },
+  {
+    key: 'Blue',
+    name: 'Blue',
+    path: '/assets/maps/bg-blue.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Brown',
+    name: 'Brown',
+    path: '/assets/maps/bg-brown.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Green',
+    name: 'Green',
+    path: '/assets/maps/bg-green.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Grey',
+    name: 'Grey',
+    path: '/assets/maps/bg-grey.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Pink',
+    name: 'Pink',
+    path: '/assets/maps/bg-pink.png',
+    moveDirection: 'right'
+  },
+  {
+    key: 'Purple',
+    name: 'Purple',
+    path: '/assets/maps/bg-purple.png',
+    moveDirection: 'down'
   }
 ]

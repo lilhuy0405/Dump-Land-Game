@@ -506,33 +506,6 @@
                 {
                  "class":"",
                  "height":16,
-                 "id":40,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"moveDirection",
-                         "type":"string",
-                         "value":"X"
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"Yellow"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Background"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":47,
-                 "y":49.6666666666667
-                }, 
-                {
-                 "class":"",
-                 "height":16,
                  "id":43,
                  "name":"",
                  "properties":[

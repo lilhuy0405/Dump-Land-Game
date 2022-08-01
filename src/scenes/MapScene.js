@@ -27,7 +27,7 @@ class MapScene extends Phaser.Scene {
     this.player = null
     this.background = null
     this.backgroundImage = null
-    this.backgroundImageSpeed = 1
+    this.backgroundImageSpeed = 0.5
     this.checkPoint = null;
   }
 
@@ -45,14 +45,23 @@ class MapScene extends Phaser.Scene {
   update(time, delta) {
 
     const fruitsCollected = this.fruits.filter(item => item.active === false)
-    if(fruitsCollected.length === this.fruits.length && this.checkPoint && !this.checkPoint.isShown) {
+    if (fruitsCollected.length === this.fruits.length && this.checkPoint && !this.checkPoint.isShown) {
       this.checkPoint.show()
     }
     if (this.background) {
-      if (this.background.direction === 'X') {
-        this.backgroundImage.tilePositionX += this.backgroundImageSpeed
-      } else {
-        this.backgroundImage.tilePositionY += this.backgroundImageSpeed
+      switch (this.background.moveDirection) {
+        case 'left':
+          this.backgroundImage.tilePositionX += this.backgroundImageSpeed
+          break;
+        case 'right':
+          this.backgroundImage.tilePositionX -= this.backgroundImageSpeed
+          break;
+        case 'up':
+          this.backgroundImage.tilePositionY += this.backgroundImageSpeed
+          break;
+        case 'down':
+          this.backgroundImage.tilePositionY -= this.backgroundImageSpeed
+          break;
       }
     }
 
@@ -77,15 +86,15 @@ class MapScene extends Phaser.Scene {
       this.collisionLayer.destroy();
       this.collisionLayer = null;
     }
-    if(this.heroSpwanPlace) {
+    if (this.heroSpwanPlace) {
       this.heroSpwanPlace = null;
     }
-    if(this.background) {
+    if (this.background) {
       this.backgroundImage.destroy();
       this.background = null;
       this.backgroundImage = null;
     }
-    if(this.checkPoint) {
+    if (this.checkPoint) {
       this.checkPoint.body.destroy(true, true);
       this.checkPoint.disableBody(true, true);
       this.checkPoint = null;
@@ -150,23 +159,6 @@ class MapScene extends Phaser.Scene {
             y: object.y * this.tileScale
           }
           break;
-        case MAP_OBJECTS_TYPE.BACKGROUND:
-          const backgroundName = object.properties.find(property => property.name === 'name').value;
-          const backgroundData = MAP_BG_IMAGES.find(bg => bg.key === backgroundName);
-          const backGroundMovingDirection = object.properties.find(property => property.name === 'moveDirection').value;
-          if (backgroundData && backGroundMovingDirection && backGroundMovingDirection) {
-            this.background = {
-              ...backgroundData,
-              backgroundName,
-              direction: backGroundMovingDirection,
-            }
-            //build background
-            this.backgroundImage = this.add.tileSprite(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale, this.background.key);
-            this.backgroundImage.setOrigin(0, 0);
-            // this.bg.setScrollFactor(0);
-            this.backgroundImage.setDepth(-1)
-          }
-          break;
         case MAP_OBJECTS_TYPE.CHECKPOINT:
           const from = object.properties.find(property => property.name === 'from').value;
           const to = object.properties.find(property => property.name === 'to').value;
@@ -180,6 +172,13 @@ class MapScene extends Phaser.Scene {
           break;
       }
     })
+    //random background
+
+    this.background = MAP_BG_IMAGES[Math.floor(Math.random() * MAP_BG_IMAGES.length)];
+    this.backgroundImage = this.add.tileSprite(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale, this.background.key);
+    this.backgroundImage.setOrigin(0, 0);
+    this.backgroundImage.setDepth(-1);
+
     //spawn hero
     this.player = new PlayerSprite(this, PLAYERS[2], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
     if (this.collisionLayer) {
