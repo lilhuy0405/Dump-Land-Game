@@ -5,7 +5,6 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, spriteConfig, x, y) {
     super(scene, x, y);
     this.setTexture(`${spriteConfig.name}-${spriteConfig.spriteSheets[0].key}`);
-    
     this.playerData = spriteConfig
     this.name = spriteConfig.name;
     this.setPosition(x, y);
