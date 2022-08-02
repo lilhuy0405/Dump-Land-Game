@@ -1,10 +1,13 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
+import { FRUIT_COLLECTED, FRUITS, PLAYERS } from "../configs/assets.js";
 
 export default class BootScene extends Phaser.Scene {
+  playerIndex;
+
   constructor() {
     super("BootScene");
   }
+  
   preload() {
     //TODO: config key path in a config file
     this.load.image('terrain-tiles', '/assets/maps/Terrain16x16.png');
@@ -36,7 +39,15 @@ export default class BootScene extends Phaser.Scene {
     })
   }
 
-  create(){
-    this.scene.start("MapScene");
+  create() {
+    this.scene.start("MainMenuScene",
+        {
+          "playerIndex": this.playerIndex
+        });
+  }
+  
+  init(data) {
+    this.playerIndex = data.playerIndex
+    console.log(data);
   }
 }

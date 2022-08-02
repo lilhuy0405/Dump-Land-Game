@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, PLAYERS} from "../configs/assets.js";
+import { FRUIT_COLLECTED, FRUITS, PLAYERS } from "../configs/assets.js";
 import PlayerSprite from "../Sprites/PlayerSprite.js";
 import FruitSprite from "../Sprites/FruitSprite.js";
 
@@ -18,6 +18,7 @@ class MapScene extends Phaser.Scene {
 
     this.tileScale = 2;
     this.cameraScale = 1;
+    this.playerIndex = 0;
   }
 
   preload() {
@@ -26,8 +27,7 @@ class MapScene extends Phaser.Scene {
   create() {
 
     this.map = this.buildMap();
-
-    this.player = new PlayerSprite(this, PLAYERS[2], 10, 10);
+    this.player = new PlayerSprite(this, PLAYERS[this.playerIndex], 10, 10);
 
     //setup camera
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
@@ -82,6 +82,10 @@ class MapScene extends Phaser.Scene {
     this.terrainLayer.setScale(this.tileScale);
     return map
 
+  }
+  
+  init(data) {
+    this.playerIndex = data.playerIndex
   }
 }
 

@@ -1,4 +1,5 @@
 import * as Phaser from "phaser";
+import {PLAYERS} from "../configs/assets";
 
 export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, spriteConfig, x, y) {

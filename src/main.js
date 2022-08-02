@@ -1,6 +1,7 @@
 import * as Phaser from "phaser";
 import MapScene from "./scenes/MapScene.js";
 import BootScene from "./scenes/BootScene.js";
+import MainMenuScene from "./scenes/MainMenuScene";
 
 export default class MyGame extends Phaser.Game {
   constructor() {
@@ -12,6 +13,7 @@ export default class MyGame extends Phaser.Game {
       pixelArt: true,
       scene: [
         BootScene,
+        MainMenuScene,
         MapScene,
       ],
       physics: {
