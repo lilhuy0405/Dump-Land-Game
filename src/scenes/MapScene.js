@@ -1,7 +1,10 @@
 import Phaser from "phaser";
-import { FRUIT_COLLECTED, FRUITS, PLAYERS } from "../configs/assets.js";
-import PlayerSprite from "../Sprites/PlayerSprite.js";
-import FruitSprite from "../Sprites/FruitSprite.js";
+import {BOXES, FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
+import PlayerSprite from "../sprites/PlayerSprite.js";
+import FruitSprite from "../sprites/FruitSprite.js";
+import CheckPointSprite from "../sprites/CheckPointSprite.js";
+import BoxSprite from "../sprites/BoxSprite.js";
+import TrampolineSprite from "../sprites/TrampolineSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -18,7 +21,18 @@ class MapScene extends Phaser.Scene {
 
     this.tileScale = 2;
     this.cameraScale = 1;
-    this.playerIndex = 0;
+    this.map = null
+    this.fruits = []
+    this.collisionLayer = null;
+    this.isShowingCollision = false;
+    this.heroSpwanPlace = null;
+    this.player = null
+    this.background = null
+    this.backgroundImage = null
+    this.backgroundImageSpeed = 0.5
+    this.checkPoint = null;
+    this.boxes = null
+    this.trampolines = null
   }
 
   preload() {
@@ -26,62 +40,221 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap();
-    this.player = new PlayerSprite(this, PLAYERS[this.playerIndex], 10, 10);
-
-    //setup camera
-    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
-    this.physics.world.setBounds(0, 0, this.map.widthInPixels * this.tileScale, this.map.heightInPixels * this.tileScale);
-    this.cameras.main.setZoom(this.cameraScale);
-    this.cameras.main.startFollow(this.player);
-
-    //collision
-    this.terrainLayer.setCollision([7, 8, 9, 1, 2, 3, 13, 14, 15, 35, 40, 41, 42])
-
-    this.terrainLayer.forEachTile(tile => {
-      if ([7, 8, 9, 40, 41, 42].includes(tile.index)) {
-        tile.collideDown = false;
-      }
-    })
-    this.physics.add.collider(this.player, this.terrainLayer);
+    this.map = this.buildMap(MAPS[0].key);
     this.cursors = this.input.keyboard.createCursorKeys();
-    //add fruits
-    //TODO: read from tiled map
-    let fruits = this.physics.add.staticGroup();
-    FRUITS.forEach((fruit, index) => {
-      fruits.add(new FruitSprite(this, fruit, 340 + (index * 40), 340))
-    })
+    // console.log('increate', this.map)
 
-    this.physics.add.overlap(this.player, fruits, (player, fruit) => {
-      fruit.anims.play(FRUIT_COLLECTED.key, true);
-      // fruit.disableBody(true, true);
-    })
   }
 
   update(time, delta) {
-    this.bg.tilePositionX++;
+
+    const fruitsCollected = this.fruits.filter(item => item.active === false)
+    let boxCondition = false
+    if (this.boxes) {
+      //calculate broken box
+      let brokenBoxes = 0;
+      const boxesBroken = this.boxes.children.each(item => {
+        if (item.isBroken) {
+          brokenBoxes++;
+        }
+      })
+      //check if all fruit is collected
+      let boxFruitsCollected = 0;
+      this.boxes.children.each(item => {
+        if (item.fruit && !item.fruit.active) {
+          boxFruitsCollected++;
+        }
+      })
+
+      if (brokenBoxes === this.boxes.children.size && boxFruitsCollected === this.boxes.children.size) {
+        boxCondition = true
+      }
+    }
+
+    if (fruitsCollected.length === this.fruits.length && boxCondition && this.checkPoint && !this.checkPoint.isShown) {
+      this.checkPoint.show()
+    }
+    if (this.background) {
+      switch (this.background.moveDirection) {
+        case 'left':
+          this.backgroundImage.tilePositionX += this.backgroundImageSpeed
+          break;
+        case 'right':
+          this.backgroundImage.tilePositionX -= this.backgroundImageSpeed
+          break;
+        case 'up':
+          this.backgroundImage.tilePositionY += this.backgroundImageSpeed
+          break;
+        case 'down':
+          this.backgroundImage.tilePositionY -= this.backgroundImageSpeed
+          break;
+      }
+    }
+
   }
 
-  buildMap() {
-    const map = this.make.tilemap({key: 'map'});
-    console.log(map)
+  buildMap(mapKey) {
+    //remove old map
+    if (this.player) {
+      this.player.disableBody(true, true);
+      this.player.body.destroy(true, true);
+      this.player = null;
+    }
 
-    // The first parameter is the name of the tileset in Tiled and the second parameter is the key
-    // of the tileset image used when loading the file in preload.
-    this.terrainTiles = map.addTilesetImage('Terrain (16x16)', 'terrain-tiles');
-    this.backgroundTiles = map.addTilesetImage('Yellow', 'bg-tiles');
-    // You can load a layer from the map using the layer name from Tiled, or by using the layer
-    // this.backgroundLayer = map.createLayer('Background', this.backgroundTiles, 0, 0);
-    this.terrainLayer = map.createLayer('ForeGround', this.terrainTiles, 0, 0);
-    // this.backgroundLayer.setScale(this.tileScale);
-    console.log(map.widthInPixels)
-    this.bg = this.add.tileSprite(0, 0, map.widthInPixels * 2, map.heightInPixels * 2, 'bg1');
-    this.bg.setOrigin(0, 0);
-    // this.bg.setScrollFactor(0);
-    this.bg.setDepth(-1)
-    this.terrainLayer.setScale(this.tileScale);
+    if (this.fruits.length > 0) {
+      this.fruits.forEach(fruit => {
+        fruit.disableBody(true, true);
+        fruit.body.destroy(true, true);
+        this.fruits = [];
+      })
+    }
+    if (this.collisionLayer) {
+      this.collisionLayer.destroy();
+      this.collisionLayer = null;
+    }
+    if (this.heroSpwanPlace) {
+      this.heroSpwanPlace = null;
+    }
+    if (this.background) {
+      this.backgroundImage.destroy();
+      this.background = null;
+      this.backgroundImage = null;
+    }
+    if (this.checkPoint) {
+      this.checkPoint.body.destroy(true, true);
+      this.checkPoint.disableBody(true, true);
+      this.checkPoint = null;
+    }
+    if (this.boxes) {
+      this.boxes.children.each(box => {
+        if (box.fruit) {
+          box.fruit.destroy(true, true);
+          box.fruit = null;
+        }
+      })
+      this.boxes.clear(true, true);
+
+      this.boxes = null
+    }
+    if (this.trampolines) {
+      this.trampolines.clear(true, true);
+      this.trampolines = null;
+    }
+    if (this.map) {
+      this.map.destroy();
+      this.map = null;
+    }
+
+    //build new map
+    const map = this.make.tilemap({key: mapKey});
+
+    //create tileSet and layer
+    const tileSets = []
+    map.tilesets.forEach(tileset => {
+      tileSets.push(map.addTilesetImage(tileset.name, tileset.name));
+    })
+    const layers = []
+    map.layers.forEach(layer => {
+      const layerTileSetProps = layer.properties.find(prop => prop.name === 'tilesets').value.split(',')
+      const layerTileSets = []
+      layerTileSetProps.forEach((tileSetProp, index) => {
+        const tileSetName = tileSetProp.replaceAll('"', '')
+        const tileSet = tileSets.find(item => item.name === tileSetName)
+        if (tileSet) {
+          layerTileSets.push(tileSet)
+        }
+
+      })
+      layers.push(map.createLayer(layer.name, layerTileSets, 0, 0).setScale(this.tileScale))
+    })
+
+    const collisionLayer = layers.find(layer => layer.layer.name === 'Collision')
+    if (collisionLayer) {
+      collisionLayer.setCollisionByProperty({collide: true})
+      collisionLayer.forEachTile(tile => {
+        if (tile.properties.canJump) {
+          tile.collideDown = false
+        }
+      })
+      collisionLayer.setAlpha(this.isShowingCollision ? 0.6 : 0)
+      this.collisionLayer = collisionLayer
+    }
+
+    // build objects
+    const objectLayer = map.getObjectLayer('Objects');
+    this.boxes = this.physics.add.staticGroup();
+    this.trampolines = this.physics.add.staticGroup();
+    objectLayer.objects.forEach(object => {
+      const objectType = object.properties.find(property => property.name === 'type').value;
+      switch (objectType) {
+        case MAP_OBJECTS_TYPE.FRUITS:
+          const fruitName = object.properties.find(property => property.name === 'name').value;
+          const fruitData = FRUITS.find(fruit => fruit.key === fruitName);
+          //caculate position
+          const x = object.x * this.tileScale;
+          const y = object.y * this.tileScale;
+          this.fruits.push(new FruitSprite(this, fruitData, x, y));
+          break;
+        case MAP_OBJECTS_TYPE.HERO_SPAWN:
+          this.heroSpwanPlace = {
+            x: object.x * this.tileScale,
+            y: object.y * this.tileScale
+          }
+          break;
+        case MAP_OBJECTS_TYPE.CHECKPOINT:
+          const from = object.properties.find(property => property.name === 'from').value;
+          const to = object.properties.find(property => property.name === 'to').value;
+          this.checkPoint = new CheckPointSprite(this, {
+            from,
+            to
+          }, object.x * this.tileScale, object.y * this.tileScale);
+          break;
+        case MAP_OBJECTS_TYPE.BOXES:
+          const boxName = object.properties.find(property => property.name === 'name').value;
+          const boxConfig = BOXES.find(box => box.key === boxName);
+          const hitPoint = object.properties.find(property => property.name === 'hitPoint').value;
+          const fruit = object.properties.find(property => property.name === 'fruit').value;
+          const boxData = {...boxConfig, hitPoint, fruit}
+          this.boxes.add(new BoxSprite(this, boxData, object.x * this.tileScale, object.y * this.tileScale))
+          break;
+        case MAP_OBJECTS_TYPE.TRAMPOLINES:
+          this.trampolines.add(new TrampolineSprite(this, object.x * this.tileScale, object.y * this.tileScale))
+          break;
+
+
+        default:
+          break;
+      }
+    })
+    //random background
+
+    this.background = MAP_BG_IMAGES[Math.floor(Math.random() * MAP_BG_IMAGES.length)];
+    this.backgroundImage = this.add.tileSprite(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale, this.background.key);
+    this.backgroundImage.setOrigin(0, 0);
+    this.backgroundImage.setDepth(-1);
+
+    //spawn hero
+    this.player = new PlayerSprite(this, PLAYERS[this.playerIndex], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
+    //collsion detection
+    if (this.collisionLayer) {
+      this.physics.add.collider(this.player, this.collisionLayer);
+    }
+    if (this.boxes) {
+      this.physics.add.collider(this.player, this.boxes, (player, box) => {
+        box.onHit()
+      });
+    }
+    if (this.trampolines) {
+      this.physics.add.collider(this.player, this.trampolines, (player, trampoline) => {
+        trampoline.onPlayerJumpInto()
+      });
+    }
+    //setup camera
+    this.cameras.main.setBounds(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale);
+    this.physics.world.setBounds(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale);
+    this.cameras.main.setZoom(this.cameraScale);
+    this.cameras.main.startFollow(this.player);
     return map
-
   }
   
   init(data) {

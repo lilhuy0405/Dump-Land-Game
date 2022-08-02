@@ -24,28 +24,8 @@ export default class MainMenuScene extends Phaser.Scene {
     }
 
     create() {
+        // this.scene.start('MapScene')
         
-        // player.destroy("MainMenuScene");
-        //
-        // PLAYERS[1].spriteSheets.forEach(spriteSheet => {
-        //     this.anims.create({
-        //         key: `${spriteSheet.key}`,
-        //         frames: this.anims.generateFrameNumbers(`${this.name}-${spriteSheet.key}`, {
-        //             start: 0,
-        //             end: spriteSheet.frameConfig.frameRate - 1
-        //         }),
-        //         frameRate: spriteSheet.frameConfig.frameRate,
-        //         repeat: -1,
-        //     });
-        // })
-
-        // this.add.sprite(10, 10, PLAYERS[1].name,0)
-
-        // add animate 
-        // this.anims.create()
-        // this.demoPlayer.anims.play('run', true)
-        
-
         const { width, height } = this.scale
 
         let button = {}
@@ -93,15 +73,11 @@ export default class MainMenuScene extends Phaser.Scene {
         
         // console.log(this, PLAYERS[this.selectedButtonIndex])
         // this.destroySprite(this.demoPlayer)
-        console.log(this.demoPlayer)
         
-        if(this.demoPlayer) {
-           this.demoPlayer.body.destroy()
+        if (this.demoPlayer) {
+            this.demoPlayer.destroy()
+            this.demoPlayer = null
         }
         this.demoPlayer = new PlayerSprite(this, PLAYERS[this.selectedButtonIndex], 10, 10);
-    }
-
-    update() {
-        // this.demoPlayer = new PlayerSprite(this, PLAYERS[this.selectedButtonIndex], 10, 10);
     }
 }

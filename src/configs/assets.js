@@ -284,6 +284,25 @@ export const FRUITS = LIST_FRUITS.map(fruit => ({
     frameRate: 17
   }
 }))
+export const PLAYER_APPEAR = {
+  key: 'player-appear',
+  path: '/assets/characters/Appearing (96x96).png',
+  frameConfig: {
+    frameWidth: 96,
+    frameHeight: 96,
+    frameRate: 7
+  }
+}
+
+export const PLAYER_DISAPPEAR = {
+  key: 'player-appear',
+  path: '/assets/characters/Desappearing (96x96).png',
+  frameConfig: {
+    frameWidth: 96,
+    frameHeight: 96,
+    frameRate: 7
+  }
+}
 
 export const FRUIT_COLLECTED = {
   key: 'fruit-collected',
@@ -295,14 +314,251 @@ export const FRUIT_COLLECTED = {
   }
 }
 
-export const MAP = [
+export const MAPS = [
   {
     name: 'map 1',
     key: 'map1',
     path: '/assets/maps/map1.json',
+  },
+  {
+    name: 'map 2',
+    key: 'map2',
+    path: '/assets/maps/map2.json',
+  },
+  {
+    name: 'map 3',
+    key: 'map3',
+    path: '/assets/maps/map3.json',
   }
 ]
 
+export const MAP_OBJECTS_TYPE = {
+  FRUITS: 'Fruits',
+  HERO_SPAWN: 'HeroSpawn',
+  BACKGROUND: 'Background',
+  CHECKPOINT: 'Checkpoint',
+  BOXES: 'Boxes',
+  TRAMPOLINES: 'Trampolines',
+}
+
+export const CHECKPOINT_SPRITES = [
+  {
+    key: 'checkpoint-flag-out',
+    path: '/assets/Checkpoint/Checkpoint (Flag Out) (64x64).png',
+    frameConfig: {
+      frameWidth: 64,
+      frameHeight: 64,
+      frameRate: 16,
+      repeat: 1
+    }
+  },
+  {
+    key: 'checkpoint-idle',
+    path: '/assets/Checkpoint/Checkpoint (Flag Idle)(64x64).png',
+    frameConfig: {
+      frameWidth: 64,
+      frameHeight: 64,
+      frameRate: 10,
+      repeat: -1
+    }
+  }
+]
+/*
+* TILE SETS IMAGE USE IN TILE MAP
+* <br/><b>key</b>: the tile set name mapped by tileset name in tiled editor
+* <br/><b>path</b>: the image path
+* */
 export const MAP_TILE_SETS = [
+  {
+    key: 'Terrain (16x16)',
+    path: '/assets/maps/Terrain16x16.png',
+  },
+  {
+    key: 'Collision',
+    path: '/assets/maps/collisionTileSets.png',
+  },
 
 ]
+
+export const MAP_BG_IMAGES = [
+  {
+    key: 'Yellow',
+    name: 'Yellow',
+    path: '/assets/maps/bg-yellow.png',
+    moveDirection: 'left',
+  },
+  {
+    key: 'Blue',
+    name: 'Blue',
+    path: '/assets/maps/bg-blue.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Brown',
+    name: 'Brown',
+    path: '/assets/maps/bg-brown.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Green',
+    name: 'Green',
+    path: '/assets/maps/bg-green.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Grey',
+    name: 'Grey',
+    path: '/assets/maps/bg-grey.png',
+    moveDirection: 'down'
+  },
+  {
+    key: 'Pink',
+    name: 'Pink',
+    path: '/assets/maps/bg-pink.png',
+    moveDirection: 'right'
+  },
+  {
+    key: 'Purple',
+    name: 'Purple',
+    path: '/assets/maps/bg-purple.png',
+    moveDirection: 'down'
+  }
+]
+
+export const BOXES = [
+  {
+    key: 'Box-1',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box1/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 1,
+          duration: 100
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box1/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1,
+          duration: 100
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box1/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 3,
+          repeat: 1,
+          duration: 100
+        }
+      }
+    ],
+  },
+  {
+    key: 'Box-2',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box2/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 0
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box2/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box2/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 2,
+          repeat: 0
+        }
+      }
+    ],
+  },
+  {
+    key: 'Box-3',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box3/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 1
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box3/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box3/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 2,
+          repeat: 0
+        }
+      }
+    ],
+  }
+]
+
+export const TRAMPOLINE = {
+  key: 'Trampoline',
+  spriteSheets: [
+    {
+      key: 'idle',
+      path: '/assets/Traps/Trampoline/Idle.png',
+      frameConfig: {
+        frameWidth: 28,
+        frameHeight: 28,
+        frameRate: 1,
+        repeat: -1
+      }
+    },
+    {
+      key: 'Jump',
+      path: '/assets/Traps/Trampoline/Jump(28x28).png',
+      frameConfig: {
+        frameWidth: 28,
+        frameHeight: 28,
+        frameRate: 8,
+        repeat: -1
+      }
+    }
+
+  ]
+}
