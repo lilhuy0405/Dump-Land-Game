@@ -41,7 +41,6 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   }
 
   preUpdate(time, delta) {
-
     super.preUpdate(time, delta);
     if (this.body.velocity.y > 0 && !this.body.touching.down) {
       this.play('fall');

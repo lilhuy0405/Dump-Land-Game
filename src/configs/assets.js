@@ -338,6 +338,7 @@ export const MAP_OBJECTS_TYPE = {
   BACKGROUND: 'Background',
   CHECKPOINT: 'Checkpoint',
   BOXES: 'Boxes',
+  TRAMPOLINES: 'Trampolines',
 }
 
 export const CHECKPOINT_SPRITES = [
@@ -534,3 +535,30 @@ export const BOXES = [
     ],
   }
 ]
+
+export const TRAMPOLINE = {
+  key: 'Trampoline',
+  spriteSheets: [
+    {
+      key: 'idle',
+      path: '/assets/Traps/Trampoline/Idle.png',
+      frameConfig: {
+        frameWidth: 28,
+        frameHeight: 28,
+        frameRate: 1,
+        repeat: -1
+      }
+    },
+    {
+      key: 'Jump',
+      path: '/assets/Traps/Trampoline/Jump(28x28).png',
+      frameConfig: {
+        frameWidth: 28,
+        frameHeight: 28,
+        frameRate: 8,
+        repeat: -1
+      }
+    }
+
+  ]
+}

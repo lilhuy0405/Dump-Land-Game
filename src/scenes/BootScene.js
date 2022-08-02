@@ -8,7 +8,7 @@ import {
   MAP_TILE_SETS,
   MAPS,
   PLAYER_APPEAR, PLAYER_DISAPPEAR,
-  PLAYERS
+  PLAYERS, TRAMPOLINE
 } from "../configs/assets.js";
 
 export default class BootScene extends Phaser.Scene {
@@ -75,6 +75,14 @@ export default class BootScene extends Phaser.Scene {
             frameHeight: spriteSheet.frameConfig.frameHeight
           })
       })
+    })
+    //load traps
+    TRAMPOLINE.spriteSheets.map(spriteSheet => {
+      this.load.spritesheet(`${TRAMPOLINE.key}-${spriteSheet.key}`,
+        spriteSheet.path, {
+          frameWidth: spriteSheet.frameConfig.frameWidth,
+          frameHeight: spriteSheet.frameConfig.frameHeight
+        })
     })
 
     const progressBar = this.add.graphics();

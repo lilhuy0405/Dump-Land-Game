@@ -4,6 +4,7 @@ import PlayerSprite from "../sprites/PlayerSprite.js";
 import FruitSprite from "../sprites/FruitSprite.js";
 import CheckPointSprite from "../sprites/CheckPointSprite.js";
 import BoxSprite from "../sprites/BoxSprite.js";
+import TrampolineSprite from "../sprites/TrampolineSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -31,6 +32,7 @@ class MapScene extends Phaser.Scene {
     this.backgroundImageSpeed = 0.5
     this.checkPoint = null;
     this.boxes = null
+    this.trampolines = null
   }
 
   preload() {
@@ -38,7 +40,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[0].key);
+    this.map = this.buildMap(MAPS[2].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
@@ -134,6 +136,10 @@ class MapScene extends Phaser.Scene {
 
       this.boxes = null
     }
+    if (this.trampolines) {
+      this.trampolines.clear(true, true);
+      this.trampolines = null;
+    }
     if (this.map) {
       this.map.destroy();
       this.map = null;
@@ -177,6 +183,7 @@ class MapScene extends Phaser.Scene {
     // build objects
     const objectLayer = map.getObjectLayer('Objects');
     this.boxes = this.physics.add.staticGroup();
+    this.trampolines = this.physics.add.staticGroup();
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
       switch (objectType) {
@@ -210,6 +217,10 @@ class MapScene extends Phaser.Scene {
           const boxData = {...boxConfig, hitPoint, fruit}
           this.boxes.add(new BoxSprite(this, boxData, object.x * this.tileScale, object.y * this.tileScale))
           break;
+        case MAP_OBJECTS_TYPE.TRAMPOLINES:
+          this.trampolines.add(new TrampolineSprite(this, object.x * this.tileScale, object.y * this.tileScale))
+          break;
+
 
         default:
           break;
@@ -224,14 +235,18 @@ class MapScene extends Phaser.Scene {
 
     //spawn hero
     this.player = new PlayerSprite(this, PLAYERS[2], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
-
+    //collsion detection
     if (this.collisionLayer) {
       this.physics.add.collider(this.player, this.collisionLayer);
     }
     if (this.boxes) {
-      console.log(this.boxes)
       this.physics.add.collider(this.player, this.boxes, (player, box) => {
         box.onHit()
+      });
+    }
+    if (this.trampolines) {
+      this.physics.add.collider(this.player, this.trampolines, (player, trampoline) => {
+        trampoline.onPlayerJumpInto()
       });
     }
     //setup camera
