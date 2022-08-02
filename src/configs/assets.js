@@ -324,6 +324,11 @@ export const MAPS = [
     name: 'map 2',
     key: 'map2',
     path: '/assets/maps/map2.json',
+  },
+  {
+    name: 'map 3',
+    key: 'map3',
+    path: '/assets/maps/map3.json',
   }
 ]
 
@@ -332,6 +337,7 @@ export const MAP_OBJECTS_TYPE = {
   HERO_SPAWN: 'HeroSpawn',
   BACKGROUND: 'Background',
   CHECKPOINT: 'Checkpoint',
+  BOXES: 'Boxes',
 }
 
 export const CHECKPOINT_SPRITES = [
@@ -415,5 +421,116 @@ export const MAP_BG_IMAGES = [
     name: 'Purple',
     path: '/assets/maps/bg-purple.png',
     moveDirection: 'down'
+  }
+]
+
+export const BOXES = [
+  {
+    key: 'Box-1',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box1/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 1,
+          duration: 100
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box1/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1,
+          duration: 100
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box1/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 3,
+          repeat: 1,
+          duration: 100
+        }
+      }
+    ],
+  },
+  {
+    key: 'Box-2',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box2/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 0
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box2/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box2/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 2,
+          repeat: 0
+        }
+      }
+    ],
+  },
+  {
+    key: 'Box-3',
+    spriteSheet: [
+      {
+        key: 'break',
+        path: '/assets/Boxes/Box3/Break.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: 1
+        }
+      },
+      {
+        key: 'idle',
+        path: '/assets/Boxes/Box3/Idle.png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1
+        }
+      },
+      {
+        key: 'Hit',
+        path: '/assets/Boxes/Box3/Hit (28x24).png',
+        frameConfig: {
+          frameWidth: 28,
+          frameHeight: 24,
+          frameRate: 2,
+          repeat: 0
+        }
+      }
+    ],
   }
 ]

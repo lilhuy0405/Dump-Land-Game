@@ -1,8 +1,9 @@
 import Phaser from "phaser";
-import {FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
+import {BOXES, FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
 import PlayerSprite from "../sprites/PlayerSprite.js";
 import FruitSprite from "../sprites/FruitSprite.js";
 import CheckPointSprite from "../sprites/CheckPointSprite.js";
+import BoxSprite from "../sprites/BoxSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -29,6 +30,7 @@ class MapScene extends Phaser.Scene {
     this.backgroundImage = null
     this.backgroundImageSpeed = 0.5
     this.checkPoint = null;
+    this.boxes = null
   }
 
   preload() {
@@ -36,7 +38,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[0].key);
+    this.map = this.buildMap(MAPS[1].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
@@ -45,7 +47,29 @@ class MapScene extends Phaser.Scene {
   update(time, delta) {
 
     const fruitsCollected = this.fruits.filter(item => item.active === false)
-    if (fruitsCollected.length === this.fruits.length && this.checkPoint && !this.checkPoint.isShown) {
+    let boxCondition = false
+    if (this.boxes) {
+      //calculate broken box
+      let brokenBoxes = 0;
+      const boxesBroken = this.boxes.children.each(item => {
+        if (item.isBroken) {
+          brokenBoxes++;
+        }
+      })
+      //check if all fruit is collected
+      let boxFruitsCollected = 0;
+      this.boxes.children.each(item => {
+        if (item.fruit && !item.fruit.active) {
+          boxFruitsCollected++;
+        }
+      })
+
+      if (brokenBoxes === this.boxes.children.size && boxFruitsCollected === this.boxes.children.size) {
+        boxCondition = true
+      }
+    }
+
+    if (fruitsCollected.length === this.fruits.length && boxCondition && this.checkPoint && !this.checkPoint.isShown) {
       this.checkPoint.show()
     }
     if (this.background) {
@@ -99,6 +123,17 @@ class MapScene extends Phaser.Scene {
       this.checkPoint.disableBody(true, true);
       this.checkPoint = null;
     }
+    if (this.boxes) {
+      this.boxes.children.each(box => {
+        if (box.fruit) {
+          box.fruit.destroy(true, true);
+          box.fruit = null;
+        }
+      })
+      this.boxes.clear(true, true);
+
+      this.boxes = null
+    }
     if (this.map) {
       this.map.destroy();
       this.map = null;
@@ -141,7 +176,7 @@ class MapScene extends Phaser.Scene {
 
     // build objects
     const objectLayer = map.getObjectLayer('Objects');
-    // this.fruits = this.physics.add.staticGroup();
+    this.boxes = this.physics.add.staticGroup();
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
       switch (objectType) {
@@ -167,6 +202,14 @@ class MapScene extends Phaser.Scene {
             to
           }, object.x * this.tileScale, object.y * this.tileScale);
           break;
+        case MAP_OBJECTS_TYPE.BOXES:
+          const boxName = object.properties.find(property => property.name === 'name').value;
+          const boxConfig = BOXES.find(box => box.key === boxName);
+          const hitPoint = object.properties.find(property => property.name === 'hitPoint').value;
+          const fruit = object.properties.find(property => property.name === 'fruit').value;
+          const boxData = {...boxConfig, hitPoint, fruit}
+          this.boxes.add(new BoxSprite(this, boxData, object.x * this.tileScale, object.y * this.tileScale))
+          break;
 
         default:
           break;
@@ -181,8 +224,15 @@ class MapScene extends Phaser.Scene {
 
     //spawn hero
     this.player = new PlayerSprite(this, PLAYERS[2], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
+
     if (this.collisionLayer) {
       this.physics.add.collider(this.player, this.collisionLayer);
+    }
+    if (this.boxes) {
+      console.log(this.boxes)
+      this.physics.add.collider(this.player, this.boxes, (player, box) => {
+        box.onHit()
+      });
     }
     //setup camera
     this.cameras.main.setBounds(0, 0, map.widthInPixels * this.tileScale, map.heightInPixels * this.tileScale);

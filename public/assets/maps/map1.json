@@ -505,8 +505,8 @@
                 }, 
                 {
                  "class":"",
-                 "height":16,
-                 "id":43,
+                 "height":32,
+                 "id":44,
                  "name":"",
                  "properties":[
                         {
@@ -526,9 +526,9 @@
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":16.5,
-                 "x":480,
-                 "y":196.333333333333
+                 "width":32,
+                 "x":384.333333333333,
+                 "y":113.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -537,7 +537,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":44,
+ "nextobjectid":45,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

@@ -4,7 +4,7 @@ import {FRUIT_COLLECTED} from "../configs/assets.js";
 export default class FruitSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, fruit, x, y) {
     super(scene, x, y);
-    this.data = fruit
+    this.fruitData = fruit
     this.collectedAnimationTime = 200
     this.setTexture(fruit.key);
     this.setPosition(x, y);
@@ -22,14 +22,14 @@ export default class FruitSprite extends Phaser.Physics.Arcade.Sprite {
 
   createAnimation() {
 
-    if (!this.scene.anims.exists(this.data.key)) {
+    if (!this.scene.anims.exists(this.fruitData.key)) {
       this.scene.anims.create({
-        key: `${this.data.key}`,
-        frames: this.scene.anims.generateFrameNumbers(this.data.key, {
+        key: `${this.fruitData.key}`,
+        frames: this.scene.anims.generateFrameNumbers(this.fruitData.key, {
           start: 0,
-          end: this.data.frameConfig.frameRate - 1
+          end: this.fruitData.frameConfig.frameRate - 1
         }),
-        frameRate: this.data.frameConfig.frameRate,
+        frameRate: this.fruitData.frameConfig.frameRate,
         repeat: -1,
       })
     }
@@ -46,7 +46,7 @@ export default class FruitSprite extends Phaser.Physics.Arcade.Sprite {
       })
     }
 
-    this.anims.play(`${this.data.key}`, true);
+    this.anims.play(`${this.fruitData.key}`, true);
   }
 
   preUpdate(time, delta) {

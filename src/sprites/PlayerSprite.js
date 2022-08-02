@@ -5,7 +5,7 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, spriteConfig, x, y) {
     super(scene, x, y);
     this.setTexture(`${spriteConfig.name}-${spriteConfig.spriteSheets[0].key}`);
-    this.data = spriteConfig
+    this.playerData = spriteConfig
     this.name = spriteConfig.name;
 
     this.setPosition(x, y);
@@ -19,14 +19,14 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.body.setGravityY(300)
     this.createAnimation();
     //setup velocity
-    this.data.velocity = {
+    this.playerData.velocity = {
       x: 160,
-      y: 300
+      y: 310
     }
   }
 
   createAnimation() {
-    this.data.spriteSheets.forEach(spriteSheet => {
+    this.playerData.spriteSheets.forEach(spriteSheet => {
       this.scene.anims.create({
         key: `${spriteSheet.key}`,
         frames: this.scene.anims.generateFrameNumbers(`${this.name}-${spriteSheet.key}`, {
@@ -48,14 +48,14 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (this.scene.cursors.left.isDown) {
-      this.setVelocityX(-this.data.velocity.x);
+      this.setVelocityX(-this.playerData.velocity.x);
       this.flipX = true
       //only play run animation when player is on the ground
       if (this.body.blocked.down) {
         this.anims.play('run', true);
       }
     } else if (this.scene.cursors.right.isDown) {
-      this.setVelocityX(this.data.velocity.x);
+      this.setVelocityX(this.playerData.velocity.x);
       this.flipX = false
       if (this.body.blocked.down) {
         this.anims.play('run', true);
@@ -74,11 +74,11 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
       if (this.body.onFloor()) {
         this.anims.play('jump', true);
         this.canDoubleJump = true;
-        this.body.setVelocityY(-this.data.velocity.y);
+        this.body.setVelocityY(-this.playerData.velocity.y);
       } else if (this.canDoubleJump) {
         this.anims.play('double-jump', true);
         this.canDoubleJump = false;
-        this.body.setVelocityY(-(this.data.velocity.y - 50));
+        this.body.setVelocityY(-(this.playerData.velocity.y - 50));
       }
     }
   }

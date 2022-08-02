@@ -6,7 +6,7 @@ export default class CheckPointSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, checkPointData, x, y) {
     super(scene, x, y);
     this.setTexture(CHECKPOINT_SPRITES.key);
-    this.data = checkPointData;
+    this.checkPointData = checkPointData;
     this.from = checkPointData.from;
     this.to = checkPointData.to;
     this.setOrigin(0, 0)
@@ -52,7 +52,6 @@ export default class CheckPointSprite extends Phaser.Physics.Arcade.Sprite {
 
 
     CHECKPOINT_SPRITES.forEach(spriteSheet => {
-      console.log(spriteSheet)
       this.scene.anims.create({
         key: spriteSheet.key,
         frames: this.scene.anims.generateFrameNumbers(spriteSheet.key, {

@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import {
+  BOXES,
   CHECKPOINT_SPRITES,
   FRUIT_COLLECTED,
   FRUITS,
@@ -62,6 +63,17 @@ export default class BootScene extends Phaser.Scene {
       this.load.spritesheet(checkpoint.key, checkpoint.path, {
         frameWidth: checkpoint.frameConfig.frameWidth,
         frameHeight: checkpoint.frameConfig.frameHeight
+      })
+    })
+
+    //load boxes
+    BOXES.forEach(box => {
+      box.spriteSheet.map(spriteSheet => {
+        this.load.spritesheet(`${box.key}-${spriteSheet.key}`,
+          spriteSheet.path, {
+            frameWidth: spriteSheet.frameConfig.frameWidth,
+            frameHeight: spriteSheet.frameConfig.frameHeight
+          })
       })
     })
 
