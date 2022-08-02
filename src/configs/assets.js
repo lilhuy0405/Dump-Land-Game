@@ -329,6 +329,11 @@ export const MAPS = [
     name: 'map 3',
     key: 'map3',
     path: '/assets/maps/map3.json',
+  },
+  {
+    name: 'map 4',
+    key: 'map4',
+    path: '/assets/maps/map4.json',
   }
 ]
 
