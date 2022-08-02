@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import {PLAYERS} from "../configs/assets.js";
-import PlayerSprite from "../Sprites/PlayerSprite";
+import PlayerSprite from "../sprites/PlayerSprite";
 
 export default class MainMenuScene extends Phaser.Scene {
     cursors;
