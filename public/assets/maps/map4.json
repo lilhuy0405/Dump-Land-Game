@@ -500,6 +500,33 @@
                  "width":16,
                  "x":448.333333333333,
                  "y":45
+                }, 
+                {
+                 "class":"",
+                 "height":32,
+                 "id":84,
+                 "name":"CheckPoint",
+                 "properties":[
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"map4"
+                        }, 
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"map4"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Checkpoint"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":337,
+                 "y":190
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -508,7 +535,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":84,
+ "nextobjectid":85,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",

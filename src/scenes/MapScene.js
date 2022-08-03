@@ -143,6 +143,10 @@ class MapScene extends Phaser.Scene {
       this.trampolines.clear(true, true);
       this.trampolines = null;
     }
+    if (this.blocks) {
+      this.blocks.clear(true, true);
+      this.blocks = null;
+    }
     if (this.map) {
       this.map.destroy();
       this.map = null;

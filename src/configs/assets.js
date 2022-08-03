@@ -590,8 +590,8 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: 1,
-        duration: 500
+        repeat: 2,
+        duration: 100
       }
     },
     {
@@ -601,8 +601,8 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: 1,
-        duration: 500
+        repeat: 2,
+        duration: 200
       }
     },
     {
@@ -612,7 +612,7 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: 1,
+        repeat: 2,
         duration: 200
       }
     },

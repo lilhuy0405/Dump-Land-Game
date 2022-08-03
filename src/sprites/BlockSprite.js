@@ -9,6 +9,7 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
     this.key = BLOCK.key;
     this.isHit = false;
     this.isBroken = false;
+    this.blockRespawnTime = 6_000;
     this.setPosition(x, y);
     this.setOrigin(0, 0);
     //set block equal to tile size
@@ -64,11 +65,12 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
   _break() {
     this.visible = false;
     this.body.enable = false;
-    this._sleep(6_000).then(() => {
+    this._sleep(this.blockRespawnTime).then(() => {
       this.isHit = false;
       this.visible = true;
       this.body.enable = true;
-      this.anims.play(`${this.key}-${this.blockData.spriteSheets[3].key}`, true).once("animationcomplete", () => {
+      const randomBool = Math.random() < 0.5;
+      this.anims.play(`${this.key}-${this.blockData.spriteSheets[randomBool ? 3 : 4].key}`, true).once("animationcomplete", () => {
         this.anims.play(`${this.key}-${this.blockData.spriteSheets[0].key}`, true)
       });
     })
