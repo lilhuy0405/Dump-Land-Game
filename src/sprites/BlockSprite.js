@@ -33,12 +33,13 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
     const isHitHorizontal = (this.scene.player.body.blocked.left || this.scene.player.body.blocked.right) && (
       !this.scene.player.body.blocked.down && !this.scene.player.body.blocked.up
     )
-    let animationKey = "";
+    let animationKey = `${this.key}-${this.blockData.spriteSheets[1].key}`;
     if (isHitVertical) {
       animationKey = `${this.key}-${this.blockData.spriteSheets[2].key}`;
-    } else if (isHitHorizontal) {
-      animationKey = `${this.key}-${this.blockData.spriteSheets[1].key}`;
-    }
+    } 
+    // else if (isHitHorizontal) {
+    //   animationKey = `${this.key}-${this.blockData.spriteSheets[1].key}`;
+    // }
     this.anims.play(animationKey, true).once("animationcomplete", () => {
       this._break();
     });
