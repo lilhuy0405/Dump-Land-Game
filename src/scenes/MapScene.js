@@ -5,6 +5,7 @@ import FruitSprite from "../sprites/FruitSprite.js";
 import CheckPointSprite from "../sprites/CheckPointSprite.js";
 import BoxSprite from "../sprites/BoxSprite.js";
 import TrampolineSprite from "../sprites/TrampolineSprite.js";
+import BlockSprite from "../sprites/BlockSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -31,8 +32,10 @@ class MapScene extends Phaser.Scene {
     this.backgroundImage = null
     this.backgroundImageSpeed = 0.5
     this.checkPoint = null;
+    //static groups
     this.boxes = null
     this.trampolines = null
+    this.blocks = null
   }
 
   preload() {
@@ -40,7 +43,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[0].key);
+    this.map = this.buildMap(MAPS[3].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
@@ -147,7 +150,9 @@ class MapScene extends Phaser.Scene {
 
     //build new map
     const map = this.make.tilemap({key: mapKey});
-
+    this.tileHeight = map.tileHeight;
+    this.tileHWidth = map.tileWidth;
+    console.log(this.tileHeight, this.tileHWidth)
     //create tileSet and layer
     const tileSets = []
     map.tilesets.forEach(tileset => {
@@ -184,6 +189,8 @@ class MapScene extends Phaser.Scene {
     const objectLayer = map.getObjectLayer('Objects');
     this.boxes = this.physics.add.staticGroup();
     this.trampolines = this.physics.add.staticGroup();
+    this.blocks = this.physics.add.staticGroup();
+
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
       switch (objectType) {
@@ -220,8 +227,18 @@ class MapScene extends Phaser.Scene {
         case MAP_OBJECTS_TYPE.TRAMPOLINES:
           this.trampolines.add(new TrampolineSprite(this, object.x * this.tileScale, object.y * this.tileScale))
           break;
-
-
+        case MAP_OBJECTS_TYPE.BLOCKS:
+          const scaleX = object.properties.find(property => property.name === 'scaleX').value;
+          const scaleY = object.properties.find(property => property.name === 'scaleY').value;
+          // this.blocks.add(new BlockSprite(this, object.x * this.tileScale, object.y * this.tileScale))
+          for (let i = 0; i < scaleX; i++) {
+            for (let j = 0; j < scaleY; j++) {
+              const xPos = object.x * this.tileScale + i * this.tileHWidth * this.tileScale;
+              const yPos = object.y * this.tileScale - j * this.tileHeight * this.tileScale;
+              this.blocks.add(new BlockSprite(this, xPos, yPos))
+            }
+          }
+          break;
         default:
           break;
       }
@@ -247,6 +264,11 @@ class MapScene extends Phaser.Scene {
     if (this.trampolines) {
       this.physics.add.collider(this.player, this.trampolines, (player, trampoline) => {
         trampoline.onPlayerJumpInto()
+      });
+    }
+    if (this.blocks) {
+      this.physics.add.collider(this.player, this.blocks, (player, block) => {
+        block.onHit()
       });
     }
     //setup camera

@@ -344,6 +344,7 @@ export const MAP_OBJECTS_TYPE = {
   CHECKPOINT: 'Checkpoint',
   BOXES: 'Boxes',
   TRAMPOLINES: 'Trampolines',
+  BLOCKS: 'Blocks',
 }
 
 export const CHECKPOINT_SPRITES = [
@@ -565,5 +566,61 @@ export const TRAMPOLINE = {
       }
     }
 
+  ]
+}
+
+export const BLOCK = {
+  key: 'Block',
+  spriteSheets: [
+    {
+      key: 'idle',
+      path: '/assets/Traps/Blocks/Idle.png',
+      frameConfig: {
+        frameWidth: 22,
+        frameHeight: 22,
+        frameRate: 1,
+        repeat: -1
+      }
+    },
+    {
+      key: 'HitSide',
+      path: '/assets/Traps/Blocks/HitSide (22x22).png',
+      frameConfig: {
+        frameWidth: 22,
+        frameHeight: 22,
+        frameRate: 3,
+        repeat: -1
+      }
+    },
+    {
+      key: 'HitSide',
+      path: '/assets/Traps/Blocks/HitTop (22x22).png',
+      frameConfig: {
+        frameWidth: 22,
+        frameHeight: 22,
+        frameRate: 3,
+        repeat: -1
+      }
+    },
+    {
+      key: 'Part-1',
+      path: '/assets/Traps/Blocks/Part 1 (22x22).png',
+      frameConfig: {
+        frameWidth: 22,
+        frameHeight: 22,
+        frameRate: 3,
+        repeat: -1
+      }
+    },
+    {
+      key: 'Part-2',
+      path: '/assets/Traps/Blocks/Part 2 (22x22).png',
+      frameConfig: {
+        frameWidth: 22,
+        frameHeight: 22,
+        frameRate: 3,
+        repeat: -1
+      }
+    },
   ]
 }

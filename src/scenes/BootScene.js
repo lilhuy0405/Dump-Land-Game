@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import {
+  BLOCK,
   BOXES,
   CHECKPOINT_SPRITES,
   FRUIT_COLLECTED,
@@ -79,6 +80,13 @@ export default class BootScene extends Phaser.Scene {
     //load traps
     TRAMPOLINE.spriteSheets.map(spriteSheet => {
       this.load.spritesheet(`${TRAMPOLINE.key}-${spriteSheet.key}`,
+        spriteSheet.path, {
+          frameWidth: spriteSheet.frameConfig.frameWidth,
+          frameHeight: spriteSheet.frameConfig.frameHeight
+        })
+    })
+    BLOCK.spriteSheets.map(spriteSheet => {
+      this.load.spritesheet(`${BLOCK.key}-${spriteSheet.key}`,
         spriteSheet.path, {
           frameWidth: spriteSheet.frameConfig.frameWidth,
           frameHeight: spriteSheet.frameConfig.frameHeight
