@@ -8,6 +8,7 @@ export default class MainMenuScene extends Phaser.Scene {
     selectedButtonIndex = 0;
     demoPlayer;
     map = null;
+    platforms;
 
     constructor() {
         super('MainMenuScene')
@@ -25,7 +26,8 @@ export default class MainMenuScene extends Phaser.Scene {
     }
 
     create() {
-        // this.scene.start('MapScene')
+        this.platforms = this.physics.add.staticGroup();
+        this.platforms.create(25, 250, 'glass-panel').setScale(0.5).refreshBody();
         
         const { width, height } = this.scale
 
@@ -35,6 +37,7 @@ export default class MainMenuScene extends Phaser.Scene {
 
         for (let i = 0; i < PLAYERS.length; i++) {
             button = this.add.image(positionX, positionY, 'glass-panel').setDisplaySize(50, 50).setInteractive();
+            this.platforms.create(positionX, positionY, 'glass-panel').setDisplaySize(50, 50).refreshBody();
 
             this.add.sprite(positionX, positionY, `${PLAYERS[i].name}-${PLAYERS[i].spriteSheets[0].key}`);
             const index = i + 1
@@ -84,5 +87,6 @@ export default class MainMenuScene extends Phaser.Scene {
             this.demoPlayer = null
         }
         this.demoPlayer = new PlayerSprite(this, PLAYERS[this.selectedButtonIndex], 10, 10);
+        this.physics.add.collider(this.demoPlayer, this.platforms);
     }
 }
