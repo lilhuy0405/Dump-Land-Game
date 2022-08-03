@@ -579,7 +579,8 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 1,
-        repeat: -1
+        repeat: 1,
+        duration: 1000
       }
     },
     {
@@ -589,17 +590,19 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: -1
+        repeat: 1,
+        duration: 500
       }
     },
     {
-      key: 'HitSide',
+      key: 'HitTop',
       path: '/assets/Traps/Blocks/HitTop (22x22).png',
       frameConfig: {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: -1
+        repeat: 1,
+        duration: 500
       }
     },
     {
@@ -609,7 +612,8 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: -1
+        repeat: 1,
+        duration: 200
       }
     },
     {
@@ -619,7 +623,8 @@ export const BLOCK = {
         frameWidth: 22,
         frameHeight: 22,
         frameRate: 3,
-        repeat: -1
+        repeat: 1,
+        duration: 200
       }
     },
   ]
