@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import {PLAYERS} from "../configs/assets.js";
+import { MAP_BG_IMAGES, PLAYERS } from "../configs/assets.js";
 import PlayerSprite from "../sprites/PlayerSprite";
 
 export default class MainMenuScene extends Phaser.Scene {
@@ -7,6 +7,7 @@ export default class MainMenuScene extends Phaser.Scene {
     buttons = []
     selectedButtonIndex = 0;
     demoPlayer;
+    map = null;
 
     constructor() {
         super('MainMenuScene')
@@ -54,7 +55,11 @@ export default class MainMenuScene extends Phaser.Scene {
         })
 
         this.selectButton(0)
-        
+
+        this.background = MAP_BG_IMAGES[Math.floor(Math.random() * MAP_BG_IMAGES.length)];
+        this.backgroundImage = this.add.tileSprite(0, 0, 400 * this.tileScale, 500 * this.tileScale, this.background.key);
+        this.backgroundImage.setOrigin(0, 0);
+        this.backgroundImage.setDepth(-1);
     }
 
     selectButton(index) {
