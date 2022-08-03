@@ -64,7 +64,7 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
   _break() {
     this.visible = false;
     this.body.enable = false;
-    this._sleep(4000).then(() => {
+    this._sleep(6_000).then(() => {
       this.isHit = false;
       this.visible = true;
       this.body.enable = true;
