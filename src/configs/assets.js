@@ -576,8 +576,8 @@ export const BLOCK = {
       key: 'idle',
       path: '/assets/Traps/Blocks/Idle.png',
       frameConfig: {
-        frameWidth: 22,
-        frameHeight: 22,
+        frameWidth: 16,
+        frameHeight: 16,
         frameRate: 1,
         repeat: 1,
         duration: 1000
@@ -585,10 +585,10 @@ export const BLOCK = {
     },
     {
       key: 'HitSide',
-      path: '/assets/Traps/Blocks/HitSide (22x22).png',
+      path: '/assets/Traps/Blocks/HitSide (16x16).png',
       frameConfig: {
-        frameWidth: 22,
-        frameHeight: 22,
+        frameWidth: 16,
+        frameHeight: 16,
         frameRate: 3,
         repeat: 2,
         duration: 100
@@ -596,10 +596,10 @@ export const BLOCK = {
     },
     {
       key: 'HitTop',
-      path: '/assets/Traps/Blocks/HitTop (22x22).png',
+      path: '/assets/Traps/Blocks/HitTop (16x16).png',
       frameConfig: {
-        frameWidth: 22,
-        frameHeight: 22,
+        frameWidth: 16,
+        frameHeight: 16,
         frameRate: 3,
         repeat: 2,
         duration: 200
@@ -607,10 +607,10 @@ export const BLOCK = {
     },
     {
       key: 'Part-1',
-      path: '/assets/Traps/Blocks/Part 1 (22x22).png',
+      path: '/assets/Traps/Blocks/Part 1 (16x16).png',
       frameConfig: {
-        frameWidth: 22,
-        frameHeight: 22,
+        frameWidth: 16,
+        frameHeight: 16,
         frameRate: 3,
         repeat: 2,
         duration: 200
@@ -618,10 +618,10 @@ export const BLOCK = {
     },
     {
       key: 'Part-2',
-      path: '/assets/Traps/Blocks/Part 2 (22x22).png',
+      path: '/assets/Traps/Blocks/Part 2 (16x16).png',
       frameConfig: {
-        frameWidth: 22,
-        frameHeight: 22,
+        frameWidth: 16,
+        frameHeight: 16,
         frameRate: 3,
         repeat: 1,
         duration: 200

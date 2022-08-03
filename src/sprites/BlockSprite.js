@@ -16,7 +16,7 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
     const originalWidth = this.blockData.spriteSheets[0].frameConfig.frameWidth;
 
     const tileWidth = this.scene.tileHWidth * this.scene.tileScale;
-    this.setScale(2);
+    this.setScale(tileWidth / originalWidth);
     // enable physics
     this.scene.add.existing(this);
     this.createAnimation();
