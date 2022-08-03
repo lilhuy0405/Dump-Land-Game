@@ -66,11 +66,11 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
     this.visible = false;
     this.body.enable = false;
     this._sleep(this.blockRespawnTime).then(() => {
-      this.isHit = false;
       this.visible = true;
-      this.body.enable = true;
       const randomBool = Math.random() < 0.5;
       this.anims.play(`${this.key}-${this.blockData.spriteSheets[randomBool ? 3 : 4].key}`, true).once("animationcomplete", () => {
+        this.isHit = false;
+        this.body.enable = true;
         this.anims.play(`${this.key}-${this.blockData.spriteSheets[0].key}`, true)
       });
     })
