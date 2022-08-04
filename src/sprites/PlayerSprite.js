@@ -7,7 +7,6 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.setTexture(`${spriteConfig.name}-${spriteConfig.spriteSheets[0].key}`);
     this.playerData = spriteConfig
     this.name = spriteConfig.name;
-
     this.setPosition(x, y);
     this.setOrigin(0, 0)
     this.setScale(1)
@@ -80,5 +79,14 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
         this.body.setVelocityY(-(this.playerData.velocity.y - 50));
       }
     }
+  }
+  
+  destroy(fromScene) {
+    this.playerData.spriteSheets.forEach(spriteSheet => {
+      if (this.scene)
+      if (this.scene.anims.exists(`${spriteSheet.key}`)) 
+      this.scene.anims.remove(`${spriteSheet.key}`)
+    });
+    super.destroy(fromScene);
   }
 }

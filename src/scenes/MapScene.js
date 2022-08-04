@@ -255,7 +255,7 @@ class MapScene extends Phaser.Scene {
     this.backgroundImage.setDepth(-1);
 
     //spawn hero
-    this.player = new PlayerSprite(this, PLAYERS[2], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
+    this.player = new PlayerSprite(this, PLAYERS[this.playerIndex], this.heroSpwanPlace.x, this.heroSpwanPlace.y);
     //collsion detection
     if (this.collisionLayer) {
       this.physics.add.collider(this.player, this.collisionLayer);
@@ -281,6 +281,10 @@ class MapScene extends Phaser.Scene {
     this.cameras.main.setZoom(this.cameraScale);
     this.cameras.main.startFollow(this.player);
     return map
+  }
+  
+  init(data) {
+    this.playerIndex = data.playerIndex
   }
 }
 

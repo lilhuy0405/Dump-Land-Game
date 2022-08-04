@@ -153,6 +153,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("MapScene");
+    this.scene.start("MainMenuScene");
   }
 }
