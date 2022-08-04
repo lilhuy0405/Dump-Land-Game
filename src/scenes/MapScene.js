@@ -55,7 +55,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[4].key);
+    this.map = this.buildMap(MAPS[0].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
