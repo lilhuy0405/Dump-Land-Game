@@ -1,11 +1,21 @@
 import Phaser from "phaser";
-import {BOXES, FRUIT_COLLECTED, FRUITS, MAP_BG_IMAGES, MAP_OBJECTS_TYPE, MAPS, PLAYERS} from "../configs/assets.js";
+import {
+  BOXES,
+  FANS,
+  FRUIT_COLLECTED,
+  FRUITS,
+  MAP_BG_IMAGES,
+  MAP_OBJECTS_TYPE,
+  MAPS,
+  PLAYERS
+} from "../configs/assets.js";
 import PlayerSprite from "../sprites/PlayerSprite.js";
 import FruitSprite from "../sprites/FruitSprite.js";
 import CheckPointSprite from "../sprites/CheckPointSprite.js";
 import BoxSprite from "../sprites/BoxSprite.js";
 import TrampolineSprite from "../sprites/TrampolineSprite.js";
 import BlockSprite from "../sprites/BlockSprite.js";
+import FanSprite from "../sprites/FanSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -36,6 +46,8 @@ class MapScene extends Phaser.Scene {
     this.boxes = null
     this.trampolines = null
     this.blocks = null
+    this.fans = null
+    this.fanWind = null
   }
 
   preload() {
@@ -43,7 +55,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[0].key);
+    this.map = this.buildMap(MAPS[4].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
@@ -146,6 +158,11 @@ class MapScene extends Phaser.Scene {
     if (this.blocks) {
       this.blocks.clear(true, true);
       this.blocks = null;
+      let id = window.setTimeout(function () {
+      }, 0);
+      while (id--) {
+        window.clearTimeout(id); // will do nothing if no timeout with id is present
+      }
     }
     if (this.map) {
       this.map.destroy();
@@ -156,7 +173,7 @@ class MapScene extends Phaser.Scene {
     const map = this.make.tilemap({key: mapKey});
     this.tileHeight = map.tileHeight;
     this.tileHWidth = map.tileWidth;
-    console.log(this.tileHeight, this.tileHWidth)
+
     //create tileSet and layer
     const tileSets = []
     map.tilesets.forEach(tileset => {
@@ -194,6 +211,8 @@ class MapScene extends Phaser.Scene {
     this.boxes = this.physics.add.staticGroup();
     this.trampolines = this.physics.add.staticGroup();
     this.blocks = this.physics.add.staticGroup();
+    this.fans = this.physics.add.staticGroup();
+    this.fanWind = this.physics.add.group();
 
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
@@ -243,6 +262,33 @@ class MapScene extends Phaser.Scene {
             }
           }
           break;
+        case MAP_OBJECTS_TYPE.FANS:
+          const direction = object.properties.find(property => property.name === 'direction').value;
+          let spriteIndex = 0;
+          switch (direction) {
+            case 'left':
+              spriteIndex = 1;
+              break;
+            case 'right':
+              spriteIndex = 1;
+              break;
+            case 'up':
+              spriteIndex = 0;
+              break;
+            case 'down':
+              spriteIndex = 0;
+              break;
+            default:
+              spriteIndex = 0;
+              break;
+          }
+          let config = FANS[spriteIndex];
+          config = {
+            ...config,
+            direction,
+          }
+          this.fans.add(new FanSprite(this, config, object.x * this.tileScale, object.y * this.tileScale));
+          break;
         default:
           break;
       }
@@ -273,6 +319,11 @@ class MapScene extends Phaser.Scene {
     if (this.blocks) {
       this.physics.add.collider(this.player, this.blocks, (player, block) => {
         block.onHit()
+      });
+    }
+    if (this.fans) {
+      this.physics.add.collider(this.player, this.fans, (player, fan) => {
+        fan.onHit()
       });
     }
     //setup camera

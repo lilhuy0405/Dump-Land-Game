@@ -36,7 +36,7 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
     let animationKey = `${this.key}-${this.blockData.spriteSheets[1].key}`;
     if (isHitVertical) {
       animationKey = `${this.key}-${this.blockData.spriteSheets[2].key}`;
-    } 
+    }
     // else if (isHitHorizontal) {
     //   animationKey = `${this.key}-${this.blockData.spriteSheets[1].key}`;
     // }
@@ -47,26 +47,28 @@ export default class BlockSprite extends Phaser.GameObjects.Sprite {
 
   createAnimation() {
     this.blockData.spriteSheets.forEach(spriteSheet => {
-        this.anims.create({
-          key: `${this.key}-${spriteSheet.key}`,
-          frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
-              start: 0,
-              end: spriteSheet.frameConfig.frameRate - 1
-            }
-          ),
-          duration: spriteSheet.frameConfig.duration,
-          repeat: spriteSheet.frameConfig.repeat,
-        });
+        if (!this.scene.anims.exists(`${this.key}-${spriteSheet.key}`)) {
+          this.anims.create({
+            key: `${this.key}-${spriteSheet.key}`,
+            frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
+                start: 0,
+                end: spriteSheet.frameConfig.frameRate - 1
+              }
+            ),
+            duration: spriteSheet.frameConfig.duration,
+            repeat: spriteSheet.frameConfig.repeat,
+          });
+        }
       }
     );
     this.anims.play(`${this.key}-${this.blockData.spriteSheets[0].key}`, true);
-
   }
 
   _break() {
     this.visible = false;
     this.body.enable = false;
     this._sleep(this.blockRespawnTime).then(() => {
+      //if block is destroyed before it respawns, don't respawn it this cause by destroy map to build new map
       this.visible = true;
       const randomBool = Math.random() < 0.5;
       this.anims.play(`${this.key}-${this.blockData.spriteSheets[randomBool ? 3 : 4].key}`, true).once("animationcomplete", () => {

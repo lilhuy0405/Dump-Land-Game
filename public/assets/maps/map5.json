@@ -1,0 +1,341 @@
+{ "compressionlevel":-1,
+ "height":16,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            13, 14, 15, 0, 0, 0, 0, 0, 35, 35, 13, 14, 14, 15, 13, 14, 15, 95, 96, 96, 97, 13, 15, 0, 0, 0, 0, 0, 0, 95, 96, 97,
+            13, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 35, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 118, 119, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 119,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 95, 96, 96, 97, 0, 0, 0, 0, 95, 96, 97, 118, 119,
+            35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 139, 140, 140, 140, 140, 141, 0, 0, 0, 0, 139, 140, 140, 140, 35,
+            2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+         "height":16,
+         "id":1,
+         "name":"ForeGround",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"tilesets",
+                 "type":"string",
+                 "value":"\"Terrain (16x16)\""
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 243,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            243, 243, 243, 0, 0, 0, 0, 0, 243, 243, 243, 243, 243, 243, 243, 243, 243, 244, 244, 244, 244, 243, 243, 0, 0, 0, 0, 0, 0, 244, 244, 244,
+            243, 243, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 243, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 244, 244, 244, 244, 0, 0, 0, 0, 244, 244, 244, 0, 0,
+            243, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 243,
+            243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243, 243],
+         "height":16,
+         "id":2,
+         "name":"Collision",
+         "opacity":0.24,
+         "properties":[
+                {
+                 "name":"tilesets",
+                 "type":"string",
+                 "value":""
+                }],
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":3,
+         "name":"Objects",
+         "objects":[
+                {
+                 "class":"",
+                 "height":16,
+                 "id":1,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"HeroSpawn"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":25,
+                 "y":215.5
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":2,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Kiwi"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":160.166666666667,
+                 "y":177.833333333333
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":3,
+                 "name":"Fan Horiziontal",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"up"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":24,
+                 "x":68,
+                 "y":232.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":24,
+                 "id":4,
+                 "name":"Fan Vertical",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"right"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":0.333333333333344,
+                 "y":19.6666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":7,
+                 "name":"Fan Horiziontal",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"up"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":24,
+                 "x":387.666666666667,
+                 "y":231.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":8,
+                 "name":"Fan Horiziontal",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"up"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":24,
+                 "x":436,
+                 "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":24,
+                 "id":9,
+                 "name":"Fan Vertical",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"left"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":263.666666666667,
+                 "y":211
+                }, 
+                {
+                 "class":"",
+                 "height":8,
+                 "id":10,
+                 "name":"Fan Horiziontal",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"down"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":24,
+                 "x":282,
+                 "y":166.333333333333
+                }, 
+                {
+                 "class":"",
+                 "height":24,
+                 "id":11,
+                 "name":"Fan Vertical",
+                 "properties":[
+                        {
+                         "name":"direction",
+                         "type":"string",
+                         "value":"right"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fans"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":15,
+                 "y":213.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":4,
+ "nextobjectid":12,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.9.0",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":22,
+         "firstgid":1,
+         "image":"assets\/Terrain\/Terrain (16x16).png",
+         "imageheight":176,
+         "imagewidth":352,
+         "margin":0,
+         "name":"Terrain (16x16)",
+         "spacing":0,
+         "tilecount":242,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":6,
+         "firstgid":243,
+         "image":"assets\/Other\/Confetti (16x16).png",
+         "imageheight":16,
+         "imagewidth":96,
+         "margin":0,
+         "name":"Collision",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":16,
+         "tiles":[
+                {
+                 "id":0,
+                 "properties":[
+                        {
+                         "name":"canJump",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1,
+                 "properties":[
+                        {
+                         "name":"canJump",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"collide",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }],
+         "tilewidth":16
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.9",
+ "width":32
+}

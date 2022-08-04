@@ -24,19 +24,20 @@ export default class TrampolineSprite extends Phaser.GameObjects.Sprite {
   }
 
 
-
   createAnimation() {
     this.trampolineData.spriteSheets.forEach(spriteSheet => {
-        this.anims.create({
-          key: `${this.key}-${spriteSheet.key}`,
-          frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
-              start: 0,
-              end: spriteSheet.frameConfig.frameRate - 1
-            }
-          ),
-          frameRate: spriteSheet.frameConfig.frameRate,
-          repeat: spriteSheet.frameConfig.repeat,
-        });
+        if (!this.scene.anims.exists(`${this.key}-${spriteSheet.key}`)) {
+          this.anims.create({
+            key: `${this.key}-${spriteSheet.key}`,
+            frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
+                start: 0,
+                end: spriteSheet.frameConfig.frameRate - 1
+              }
+            ),
+            frameRate: spriteSheet.frameConfig.frameRate,
+            repeat: spriteSheet.frameConfig.repeat,
+          });
+        }
       }
     );
     this.anims.play(`${this.key}-${this.trampolineData.spriteSheets[1].key}`, true);

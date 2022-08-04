@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import {
   BLOCK,
   BOXES,
-  CHECKPOINT_SPRITES,
+  CHECKPOINT_SPRITES, DUST_PARTICLE, FANS,
   FRUIT_COLLECTED,
   FRUITS,
   MAP_BG_IMAGES,
@@ -92,6 +92,19 @@ export default class BootScene extends Phaser.Scene {
           frameHeight: spriteSheet.frameConfig.frameHeight
         })
     })
+
+    FANS.forEach(fan => {
+      fan.spriteSheets.map(spriteSheet => {
+        this.load.spritesheet(`${fan.key}-${spriteSheet.key}`,
+          spriteSheet.path, {
+            frameWidth: spriteSheet.frameConfig.frameWidth,
+            frameHeight: spriteSheet.frameConfig.frameHeight
+          })
+      })
+    })
+
+    this.load.image(DUST_PARTICLE.key, DUST_PARTICLE.path);
+
 
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();

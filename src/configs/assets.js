@@ -334,7 +334,12 @@ export const MAPS = [
     name: 'map 4',
     key: 'map4',
     path: '/assets/maps/map4.json',
-  }
+  },
+  {
+    name: 'map 5',
+    key: 'map5',
+    path: '/assets/maps/map5.json',
+  },
 ]
 
 export const MAP_OBJECTS_TYPE = {
@@ -345,6 +350,7 @@ export const MAP_OBJECTS_TYPE = {
   BOXES: 'Boxes',
   TRAMPOLINES: 'Trampolines',
   BLOCKS: 'Blocks',
+  FANS: 'Fans',
 }
 
 export const CHECKPOINT_SPRITES = [
@@ -629,3 +635,64 @@ export const BLOCK = {
     },
   ]
 }
+export const FANS = [
+  {
+    key: 'Fan-Vertical',
+    spriteSheets: [
+      {
+        key: 'off',
+        path: '/assets/Traps/Fan/Off.png',
+        frameConfig: {
+          frameWidth: 24,
+          frameHeight: 8,
+          frameRate: 1,
+          repeat: -1,
+          duration: 100
+        }
+      },
+      {
+        key: 'on',
+        path: '/assets/Traps/Fan/On(24x8).png',
+        frameConfig: {
+          frameWidth: 24,
+          frameHeight: 8,
+          frameRate: 4,
+          repeat: -1,
+          duration: 220
+        }
+      }
+    ]
+  },
+  {
+    key: 'Fan-Horizontal',
+    spriteSheets: [
+      {
+        key: 'off',
+        path: '/assets/Traps/Fan/Off-Horizontal.png',
+        frameConfig: {
+          frameWidth: 8,
+          frameHeight: 24,
+          frameRate: 1,
+          repeat: -1,
+          duration: 100
+        }
+      },
+      {
+        key: 'on',
+        path: '/assets/Traps/Fan/On-Horizontal-(24x8).png',
+        frameConfig: {
+          frameWidth: 8,
+          frameHeight: 24,
+          frameRate: 4,
+          repeat: -1,
+          duration: 220
+        }
+      }
+    ]
+  }
+]
+export const DUST_PARTICLE = {
+  key: 'Dust-Particle',
+  path: '/assets/Other/Dust Particle.png',
+}
+

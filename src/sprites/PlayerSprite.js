@@ -27,15 +27,17 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
 
   createAnimation() {
     this.playerData.spriteSheets.forEach(spriteSheet => {
-      this.scene.anims.create({
-        key: `${spriteSheet.key}`,
-        frames: this.scene.anims.generateFrameNumbers(`${this.name}-${spriteSheet.key}`, {
-          start: 0,
-          end: spriteSheet.frameConfig.frameRate - 1
-        }),
-        frameRate: spriteSheet.frameConfig.frameRate,
-        repeat: -1,
-      });
+      if (!this.scene.anims.exists(`${spriteSheet.key}`)) {
+        this.scene.anims.create({
+          key: `${spriteSheet.key}`,
+          frames: this.scene.anims.generateFrameNumbers(`${this.name}-${spriteSheet.key}`, {
+            start: 0,
+            end: spriteSheet.frameConfig.frameRate - 1
+          }),
+          frameRate: spriteSheet.frameConfig.frameRate,
+          repeat: -1,
+        });
+      }
     })
 
   }

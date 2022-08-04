@@ -52,16 +52,18 @@ export default class CheckPointSprite extends Phaser.Physics.Arcade.Sprite {
 
 
     CHECKPOINT_SPRITES.forEach(spriteSheet => {
-      this.scene.anims.create({
-        key: spriteSheet.key,
-        frames: this.scene.anims.generateFrameNumbers(spriteSheet.key, {
-          start: 0,
-          end: spriteSheet.frameConfig.frameRate - 1
-        }),
-        frameRate: spriteSheet.frameConfig.frameRate,
-        repeat: spriteSheet.frameConfig.repeat,
+      if (!this.scene.anims.exists(spriteSheet.key)) {
+        this.scene.anims.create({
+          key: spriteSheet.key,
+          frames: this.scene.anims.generateFrameNumbers(spriteSheet.key, {
+            start: 0,
+            end: spriteSheet.frameConfig.frameRate - 1
+          }),
+          frameRate: spriteSheet.frameConfig.frameRate,
+          repeat: spriteSheet.frameConfig.repeat,
 
-      })
+        })
+      }
     })
 
     this.anims.play(CHECKPOINT_SPRITES[0].key, true).once('animationcomplete', () => {

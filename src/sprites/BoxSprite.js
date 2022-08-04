@@ -58,15 +58,17 @@ export default class BoxSprite extends Phaser.GameObjects.Sprite {
 
   createAnimation() {
     this.boxData.spriteSheet.forEach(spriteSheet => {
-      this.scene.anims.create({
-        key: `${this.key}-${spriteSheet.key}`,
-        frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
-          start: 0,
-          end: spriteSheet.frameConfig.frameRate - 1
-        }),
-        duration: 300,
-        repeat: spriteSheet.frameConfig.repeat,
-      });
+      if (!this.scene.anims.exists(`${this.key}-${spriteSheet.key}`)) {
+        this.scene.anims.create({
+          key: `${this.key}-${spriteSheet.key}`,
+          frames: this.scene.anims.generateFrameNumbers(`${this.key}-${spriteSheet.key}`, {
+            start: 0,
+            end: spriteSheet.frameConfig.frameRate - 1
+          }),
+          duration: 300,
+          repeat: spriteSheet.frameConfig.repeat,
+        });
+      }
     })
     this.anims.play(`${this.key}-${this.boxData.spriteSheet[1].key}`, true);
   }
