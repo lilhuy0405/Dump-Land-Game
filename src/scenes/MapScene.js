@@ -264,6 +264,7 @@ class MapScene extends Phaser.Scene {
           break;
         case MAP_OBJECTS_TYPE.FANS:
           const direction = object.properties.find(property => property.name === 'direction').value;
+          const order = object.properties.find(property => property.name === 'order').value;
           let spriteIndex = 0;
           switch (direction) {
             case 'left':
@@ -286,6 +287,7 @@ class MapScene extends Phaser.Scene {
           config = {
             ...config,
             direction,
+            order
           }
           this.fans.add(new FanSprite(this, config, object.x * this.tileScale, object.y * this.tileScale));
           break;

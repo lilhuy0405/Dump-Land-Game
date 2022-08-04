@@ -24,11 +24,11 @@ export default class DustParticle extends Phaser.GameObjects.Image {
     this.setOrigin(0, 0);
     this.setScale(Phaser.Math.Between(0.5, 1));
     this.fan = fan
-    this.mainDirectionAccerlation = 3;
-    this.secondaryDirectionAccerlation = 0.15;
+    this.mainDirectionAccerlation = 5;
+    this.secondaryDirectionAccerlation = 1;
     this.middle = 10;
-    this.alphaReduce = 0.0001;
-    this.initVelocityRange = [200, 300]
+    this.alphaReduce = 0.01;
+    this.initVelocityRange = [400, 500]
 
 
     //random alpha and init velocity

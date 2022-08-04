@@ -10,6 +10,7 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     this.setPosition(x, y);
     this.setOrigin(0, 0)
     this.setScale(this.scene.tileScale);
+    this.isTurnedOn = false;
     //direction
 
     switch (this.config.direction) {
@@ -27,8 +28,16 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
         break;
     }
     // enable physics
+    console.log(this.config.order);
     this.scene.add.existing(this);
     this.createAnimation();
+    //set interval to turn on fan
+    this.fanInterval = 10_000;
+    this._sleep(this.config.order * this.fanInterval / 2).then(() => {
+      this.interval = setInterval(() => {
+        this.turnOn();
+      }, this.fanInterval);
+    })
 
   }
 
@@ -46,15 +55,42 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
         });
       }
     })
-    this.anims.play(`${this.key}-${this.config.spriteSheets[1].key}`, true);
+    this.anims.play(`${this.key}-${this.config.spriteSheets[0].key}`, true);
   }
 
   onHit() {
-    this.onOpen();
+    // this.turnOn();
   }
-  onOpen() {
-    //random postion of the dust particles
-    // const randomX = Phaser.Math.Between(this.x, this.x + this.width * this.scene.tileScale);
-    new DustParticle(this.scene, this);
+
+  turnOn() {
+    if (this.isTurnedOn) {
+      return
+    }
+    console.log("turn on fan");
+    //turn on fan in 5s then turn off
+    this.isTurnedOn = true;
+
+    this._sleep(this.fanInterval / 2).then(() => {
+      console.log("turn off fan");
+      this.isTurnedOn = false;
+    })
+  }
+
+  _sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+    if (this.isTurnedOn) {
+      this.anims.play(`${this.key}-${this.config.spriteSheets[1].key}`, true)
+      new DustParticle(this.scene, this)
+    } else {
+      this.anims.play(`${this.key}-${this.config.spriteSheets[0].key}`, true)
+    }
+  }
+
+  removeInterval() {
+    clearInterval(this.interval);
   }
 }

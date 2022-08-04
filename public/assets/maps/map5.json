@@ -87,8 +87,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":25,
-                 "y":215.5
+                 "x":0.666666666666668,
+                 "y":195.833333333333
                 }, 
                 {
                  "class":"",
@@ -124,6 +124,11 @@
                          "value":"up"
                         }, 
                         {
+                         "name":"order",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"Fans"
@@ -144,6 +149,11 @@
                          "name":"direction",
                          "type":"string",
                          "value":"right"
+                        }, 
+                        {
+                         "name":"order",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"type",
@@ -168,6 +178,11 @@
                          "value":"up"
                         }, 
                         {
+                         "name":"order",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"Fans"
@@ -190,6 +205,11 @@
                          "value":"up"
                         }, 
                         {
+                         "name":"order",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"Fans"
@@ -199,72 +219,6 @@
                  "width":24,
                  "x":436,
                  "y":200
-                }, 
-                {
-                 "class":"",
-                 "height":24,
-                 "id":9,
-                 "name":"Fan Vertical",
-                 "properties":[
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"left"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Fans"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":8,
-                 "x":263.666666666667,
-                 "y":211
-                }, 
-                {
-                 "class":"",
-                 "height":8,
-                 "id":10,
-                 "name":"Fan Horiziontal",
-                 "properties":[
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"down"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Fans"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":24,
-                 "x":282,
-                 "y":166.333333333333
-                }, 
-                {
-                 "class":"",
-                 "height":24,
-                 "id":11,
-                 "name":"Fan Vertical",
-                 "properties":[
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"right"
-                        }, 
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"Fans"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":8,
-                 "x":15,
-                 "y":213.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
