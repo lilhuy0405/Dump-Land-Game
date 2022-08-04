@@ -32,8 +32,9 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     this.createAnimation();
     //set interval to turn on fan
-    this.fanInterval = 10_000;
+    this.fanInterval = 6_000;
     this._sleep(this.config.order * this.fanInterval / 2).then(() => {
+      this.turnOn();
       this.interval = setInterval(() => {
         this.turnOn();
       }, this.fanInterval);
