@@ -9,7 +9,9 @@ export default class FruitSprite extends Phaser.Physics.Arcade.Sprite {
     this.setTexture(fruit.key);
     this.setPosition(x, y);
     this.setOrigin(0, 0)
-    this.setScale(1)
+    //set fruit same size as tile size
+
+    this.setScale(1.3)
     this.createAnimation();
     this.scene.add.existing(this);
     //enable body

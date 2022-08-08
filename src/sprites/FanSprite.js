@@ -11,6 +11,8 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     this.setOrigin(0, 0)
     this.setScale(this.scene.tileScale);
     this.isTurnedOn = false;
+    this.speed = 15;
+    this.fanDistance = 600;
     //direction
 
     switch (this.config.direction) {
@@ -28,7 +30,6 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
         break;
     }
     // enable physics
-    console.log(this.config.order);
     this.scene.add.existing(this);
     this.createAnimation();
     //set interval to turn on fan
@@ -74,6 +75,7 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     this._sleep(this.fanInterval / 2).then(() => {
       console.log("turn off fan");
       this.isTurnedOn = false;
+      this.scene.player.isPushed.right = false;
     })
   }
 
@@ -88,6 +90,46 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
       new DustParticle(this.scene, this)
     } else {
       this.anims.play(`${this.key}-${this.config.spriteSheets[0].key}`, true)
+    }
+    if (this.isTurnedOn) {
+      switch (this.config.direction) {
+        case "left":
+          if (this.scene.player.y > this.y
+            && this.scene.player.y < this.y + this.height * this.scene.tileScale
+            && this.scene.player.x > this.x - this.fanDistance
+          ) {
+            this.scene.player.isPushed.left = true;
+            this.scene.player.body.velocity.x += this.speed * -1;
+            this.scene.player.body.velocity.y += this.speed / 2 * -1;
+          } else {
+            this.scene.player.isPushed.left = false;
+          }
+          break;
+        case "right":
+          if (this.scene.player.y > this.y
+            && this.scene.player.y < this.y + this.height * this.scene.tileScale
+            && this.scene.player.x < this.x + this.fanDistance
+          ) {
+            this.scene.player.isPushed.right = true;
+            this.scene.player.body.velocity.x += this.speed;
+            this.scene.player.body.velocity.y += this.speed / 2 * -1;
+          } else {
+            this.scene.player.isPushed.right = false;
+          }
+          break;
+        case"up":
+          if (this.scene.player.x >= this.x && this.scene.player.x <= this.x + this.width * this.scene.tileScale) {
+            this.scene.player.body.velocity.y += this.speed * -1;
+          }
+          break;
+        case"down":
+          if (this.scene.player.x >= this.x && this.scene.player.x <= this.x + this.width * this.scene.tileScale) {
+            this.scene.player.body.velocity.y += this.speed;
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 

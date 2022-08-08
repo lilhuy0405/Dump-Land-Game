@@ -100,7 +100,6 @@ export default class DustParticle extends Phaser.GameObjects.Image {
     //IMPORTANT: IF YOU DON'T HAVE THIS LINE, THE PARTICLE WILL NOT DISAPPEAR
     if (this.y < 0 || this.y > this.scene.map.heightInPixels * this.tileScale
       || this.x < 0 || this.x > this.scene.map.widthInPixels * this.tileScale) {
-      console.log("destroy")
       this.destroy();
     }
   }

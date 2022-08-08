@@ -8,6 +8,13 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
     this.playerData = spriteConfig
     this.name = spriteConfig.name;
 
+    this.isPushed = {
+      left: false,
+      right: false,
+      up: false,
+      down: false,
+    }
+
     this.setPosition(x, y);
     this.setOrigin(0, 0)
     this.setScale(1)
@@ -44,6 +51,9 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
+    // if(this.isPushed.left || this.isPushed.right) {
+    //   this.body.setVelocityY(0);
+    // }
     if (this.body.velocity.y > 0 && !this.body.touching.down) {
       this.play('fall');
     }
@@ -62,10 +72,13 @@ export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('run', true);
       }
     } else {
-      this.setVelocityX(0);
-      if (this.body.blocked.down) {
-        this.anims.play('idle', true);
+      if(!this.isPushed.left && !this.isPushed.right) {
+        this.setVelocityX(0);
+        if (this.body.blocked.down) {
+          this.anims.play('idle', true);
+        }
       }
+
     }
 
 

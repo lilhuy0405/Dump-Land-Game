@@ -99,7 +99,7 @@
                         {
                          "name":"name",
                          "type":"string",
-                         "value":"Kiwi"
+                         "value":"Pineapple"
                         }, 
                         {
                          "name":"type",
@@ -109,8 +109,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":16,
-                 "x":160.166666666667,
-                 "y":177.833333333333
+                 "x":238.5,
+                 "y":175.833333333333
                 }, 
                 {
                  "class":"",
@@ -163,8 +163,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":8,
-                 "x":0.333333333333344,
-                 "y":19.6666666666667
+                 "x":-0.333333333333323,
+                 "y":23
                 }, 
                 {
                  "class":"",
@@ -219,6 +219,231 @@
                  "width":24,
                  "x":436,
                  "y":200
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":13,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":192,
+                 "y":176.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":14,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":144.666666666667,
+                 "y":175.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":15,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":208.333333333333,
+                 "y":144
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":16,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":177,
+                 "y":144
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":17,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":191.333333333333,
+                 "y":112
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":18,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Pineapple"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":191.333333333333,
+                 "y":112
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Strawberry"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":352.666666666667,
+                 "y":95.6666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Strawberry"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":352.333333333333,
+                 "y":128.666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":16,
+                 "id":21,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"Strawberry"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Fruits"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":491,
+                 "y":22.6666666666667
+                }, 
+                {
+                 "class":"",
+                 "height":32,
+                 "id":22,
+                 "name":"CheckPoint",
+                 "properties":[
+                        {
+                         "name":"from",
+                         "type":"string",
+                         "value":"map5"
+                        }, 
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"map6"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"Checkpoint"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":290.333333333333,
+                 "y":4.33333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -227,7 +452,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":12,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.0",
