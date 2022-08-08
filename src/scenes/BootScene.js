@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import {
+  ARROW,
   BLOCK,
   BOXES,
   CHECKPOINT_SPRITES, DUST_PARTICLE, FANS,
@@ -104,6 +105,14 @@ export default class BootScene extends Phaser.Scene {
     })
 
     this.load.image(DUST_PARTICLE.key, DUST_PARTICLE.path);
+
+    ARROW.spriteSheets.forEach(spriteSheet => {
+      this.load.spritesheet(`${ARROW.key}-${spriteSheet.key}`,
+        spriteSheet.path, {
+          frameWidth: spriteSheet.frameConfig.frameWidth,
+          frameHeight: spriteSheet.frameConfig.frameHeight
+        })
+    })
 
 
     const progressBar = this.add.graphics();

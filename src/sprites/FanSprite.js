@@ -13,6 +13,7 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     this.isTurnedOn = false;
     this.speed = 15;
     this.fanDistance = 600;
+    this.dusts = this.scene.add.group();
     //direction
 
     switch (this.config.direction) {
@@ -85,9 +86,10 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
+
     if (this.isTurnedOn) {
       this.anims.play(`${this.key}-${this.config.spriteSheets[1].key}`, true)
-      new DustParticle(this.scene, this)
+      this.dusts.add(new DustParticle(this.scene, this))
     } else {
       this.anims.play(`${this.key}-${this.config.spriteSheets[0].key}`, true)
     }
@@ -133,7 +135,22 @@ export default class FanSprite extends Phaser.GameObjects.Sprite {
     }
   }
 
-  removeInterval() {
-    clearInterval(this.interval);
+  destroyFan() {
+    this.dusts.clear(true, true);
+    //clear all timeout
+    let id = window.setTimeout(function () {
+    }, 0);
+    while (id--) {
+      window.clearTimeout(id); // will do nothing if no timeout with id is present
+    }
+    //clear interval
+    // Get a reference to the last interval + 1
+    const interval_id = window.setInterval(function () {
+    }, Number.MAX_SAFE_INTEGER);
+
+    // Clear any timeout/interval up to that id
+    for (let i = 1; i < interval_id; i++) {
+      window.clearInterval(i);
+    }
   }
 }

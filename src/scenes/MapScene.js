@@ -16,6 +16,7 @@ import BoxSprite from "../sprites/BoxSprite.js";
 import TrampolineSprite from "../sprites/TrampolineSprite.js";
 import BlockSprite from "../sprites/BlockSprite.js";
 import FanSprite from "../sprites/FanSprite.js";
+import ArrowSprite from "../sprites/ArrowSprite.js";
 
 class MapScene extends Phaser.Scene {
   constructor() {
@@ -47,7 +48,7 @@ class MapScene extends Phaser.Scene {
     this.trampolines = null
     this.blocks = null
     this.fans = null
-    this.fanWind = null
+    this.arrows = [];
   }
 
   preload() {
@@ -55,7 +56,7 @@ class MapScene extends Phaser.Scene {
 
   create() {
 
-    this.map = this.buildMap(MAPS[4].key);
+    this.map = this.buildMap(MAPS[0].key);
     this.cursors = this.input.keyboard.createCursorKeys();
     // console.log('increate', this.map)
 
@@ -164,6 +165,13 @@ class MapScene extends Phaser.Scene {
         window.clearTimeout(id); // will do nothing if no timeout with id is present
       }
     }
+    if (this.fans) {
+      this.fans.children.each(fan => {
+        fan.destroyFan();
+      })
+      this.fans.clear(true, true);
+      this.fans = null;
+    }
     if (this.map) {
       this.map.destroy();
       this.map = null;
@@ -207,12 +215,11 @@ class MapScene extends Phaser.Scene {
     }
 
     // build objects
-    const objectLayer = map.getObjectLayer('Objects');
+    const objectLayer = map.getObjectLayer('Objects') || {objects: []};
     this.boxes = this.physics.add.staticGroup();
     this.trampolines = this.physics.add.staticGroup();
     this.blocks = this.physics.add.staticGroup();
     this.fans = this.physics.add.staticGroup();
-    this.fanWind = this.physics.add.group();
 
     objectLayer.objects.forEach(object => {
       const objectType = object.properties.find(property => property.name === 'type').value;
@@ -291,6 +298,13 @@ class MapScene extends Phaser.Scene {
           }
           this.fans.add(new FanSprite(this, config, object.x * this.tileScale, object.y * this.tileScale));
           break;
+        case MAP_OBJECTS_TYPE.ARROWS:
+
+          //caculate position
+          const arrowX = object.x * this.tileScale;
+          const arrowY = object.y * this.tileScale;
+          this.arrows.push(new ArrowSprite(this, arrowX, arrowY));
+          break
         default:
           break;
       }

@@ -340,6 +340,11 @@ export const MAPS = [
     key: 'map5',
     path: '/assets/maps/map5.json',
   },
+  {
+    name: 'map 6',
+    key: 'map6',
+    path: '/assets/maps/map6.json',
+  },
 ]
 
 export const MAP_OBJECTS_TYPE = {
@@ -351,6 +356,7 @@ export const MAP_OBJECTS_TYPE = {
   TRAMPOLINES: 'Trampolines',
   BLOCKS: 'Blocks',
   FANS: 'Fans',
+  ARROWS: 'Arrows',
 }
 
 export const CHECKPOINT_SPRITES = [
@@ -696,3 +702,30 @@ export const DUST_PARTICLE = {
   path: '/assets/Other/Dust Particle.png',
 }
 
+export const ARROW = {
+  key: 'Arrow',
+  spriteSheets: [
+    {
+      key: 'idle',
+      path: '/assets/Traps/Arrow/Idle (18x18).png',
+      frameConfig: {
+        frameWidth: 18,
+        frameHeight: 18,
+        frameRate: 10,
+        repeat: -1,
+        duration: 0
+      }
+    },
+    {
+      key: 'hit',
+      path: '/assets/Traps/Arrow/Hit (18x18).png',
+      frameConfig: {
+        frameWidth: 18,
+        frameHeight: 18,
+        frameRate: 4,
+        repeat: 0,
+        duration: 200
+      }
+    },
+  ]
+}

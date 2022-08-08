@@ -4,6 +4,7 @@ import {PLAYER_APPEAR} from "../configs/assets.js";
 export default class PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, spriteConfig, x, y) {
     super(scene, x, y);
+
     this.setTexture(`${spriteConfig.name}-${spriteConfig.spriteSheets[0].key}`);
     this.playerData = spriteConfig
     this.name = spriteConfig.name;
